@@ -1,0 +1,7 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<BusinessInfoDesign class="oracle.dbtools.crest.model.businessinfo.BusinessInfoDesign" name="Business Information" id="26419D4C-536A-AF8A-50C3-EAE31EFB8470">
+<createdBy>dirtyg</createdBy>
+<createdTime>2024-09-03 02:04:02 UTC</createdTime>
+<ownerDesignName>PárvuloConnect</ownerDesignName>
+<shouldBeOpen>false</shouldBeOpen>
+</BusinessInfoDesign>

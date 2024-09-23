@@ -1,0 +1,7 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<ProcessModel class="oracle.dbtools.crest.model.design.process.ProcessModel" name="Process Model" id="B62B7282-F1CE-0FCB-070D-4A8EA89C26EF">
+<createdBy>dirtyg</createdBy>
+<createdTime>2024-09-03 02:04:01 UTC</createdTime>
+<ownerDesignName>PárvuloConnect</ownerDesignName>
+<shouldBeOpen>false</shouldBeOpen>
+</ProcessModel>

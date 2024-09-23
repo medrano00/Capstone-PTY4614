@@ -1,0 +1,7 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<LogicalDesign class="oracle.dbtools.crest.model.design.logical.LogicalDesign" name="Logical" id="D3AC68AC-CB62-D47D-EB12-DF58A5F078C0" mainViewID="29FDF3E9-489C-7446-1F76-D6DA062BFC42">
+<createdBy>dirtyg</createdBy>
+<createdTime>2024-09-03 02:04:01 UTC</createdTime>
+<ownerDesignName>PárvuloConnect</ownerDesignName>
+<shouldBeOpen>false</shouldBeOpen>
+</LogicalDesign>

@@ -1,0 +1,117 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="1BD5A126-32B5-8689-0E13-58DE58C9077B" name="Mensajes">
+<sourceDDLFile>ddl.ddl</sourceDDLFile>
+<createdBy>dirtyg</createdBy>
+<createdTime>2024-09-03 02:05:10 UTC</createdTime>
+<ownerDesignName>PárvuloConnect</ownerDesignName>
+<importedID>E3443134-4DE5-A65B-A247-2B1D9C48ED70</importedID>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="ID_Mensaje" id="9829DE1F-F5E2-8477-64C6-D3EF161F068D">
+<sourceDDLFile>ddl.ddl</sourceDDLFile>
+<createdBy>dirtyg</createdBy>
+<createdTime>2024-09-03 02:05:10 UTC</createdTime>
+<ownerDesignName>PárvuloConnect</ownerDesignName>
+<importedID>8C8F0B88-0F9D-64CB-27DC-1202AD17748F</importedID>
+<use>0</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<domain>C6D7E221-0F90-4B88-B2F5-7FDE2A3BB41C</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="ID_Emisor" id="CEA6326B-1F9F-EC9F-7676-BB8E42AB7356">
+<sourceDDLFile>ddl.ddl</sourceDDLFile>
+<createdBy>dirtyg</createdBy>
+<createdTime>2024-09-03 02:05:10 UTC</createdTime>
+<ownerDesignName>PárvuloConnect</ownerDesignName>
+<importedID>A88B0DA1-E0AF-E492-F375-DE305BD82171</importedID>
+<use>0</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<domain>C6D7E221-0F90-4B88-B2F5-7FDE2A3BB41C</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="262CA52D-4754-8275-E4B2-DB511C6D62D6" referredColumn="B5736588-C61B-7D52-36CD-37D00E401EFA"/>
+</associations>
+</Column>
+<Column name="ID_Receptor" id="5F523568-FEC4-7D80-9A84-725CC994FA1B">
+<sourceDDLFile>ddl.ddl</sourceDDLFile>
+<createdBy>dirtyg</createdBy>
+<createdTime>2024-09-03 02:05:10 UTC</createdTime>
+<ownerDesignName>PárvuloConnect</ownerDesignName>
+<importedID>365D6221-3655-AB04-414B-19F065F62D9D</importedID>
+<use>0</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<domain>C6D7E221-0F90-4B88-B2F5-7FDE2A3BB41C</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="5B9714F4-BBA6-6A77-2936-C357AC49E101" referredColumn="B5736588-C61B-7D52-36CD-37D00E401EFA"/>
+</associations>
+</Column>
+<Column name="Contenido" id="F51848BA-3875-1027-E619-D6CA37A49ACE">
+<sourceDDLFile>ddl.ddl</sourceDDLFile>
+<createdBy>dirtyg</createdBy>
+<createdTime>2024-09-03 02:05:10 UTC</createdTime>
+<ownerDesignName>PárvuloConnect</ownerDesignName>
+<importedID>A4360CB0-649B-F110-D3B6-33D40A80729E</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>300 BYTE</dataTypeSize>
+<ownDataTypeParameters>300 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Fecha_Hora" id="543EA248-6291-0E2C-98B2-F36B2DD36F6A">
+<sourceDDLFile>ddl.ddl</sourceDDLFile>
+<createdBy>dirtyg</createdBy>
+<createdTime>2024-09-03 02:05:10 UTC</createdTime>
+<ownerDesignName>PárvuloConnect</ownerDesignName>
+<importedID>B09B7AD2-86D6-0168-183E-102F0A919A13</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT008</logicalDatatype>
+<defaultValue>CURRENT_TIMESTAMP</defaultValue>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="D0B95623-2717-CACD-D1AE-A2D1B90867B5" name="Mensajes_PK">
+<sourceDDLFile>ddl.ddl</sourceDDLFile>
+<createdBy>dirtyg</createdBy>
+<createdTime>2024-09-03 02:05:10 UTC</createdTime>
+<ownerDesignName>PárvuloConnect</ownerDesignName>
+<importedID>871A809F-7ADA-09E3-8325-D3B90813BA56</importedID>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="9829DE1F-F5E2-8477-64C6-D3EF161F068D"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="BE09D2A5-50E1-DC59-E24A-C721FE598DD4" name="Mensajes_Usuarios_FK">
+<createdBy>dirtyg</createdBy>
+<createdTime>2024-09-03 02:05:10 UTC</createdTime>
+<ownerDesignName>PárvuloConnect</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="CEA6326B-1F9F-EC9F-7676-BB8E42AB7356"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="2BBBC032-2AD2-741F-28EC-F0EB6F07D669" name="Mensajes_Usuarios_FKv1">
+<createdBy>dirtyg</createdBy>
+<createdTime>2024-09-03 02:05:10 UTC</createdTime>
+<ownerDesignName>PárvuloConnect</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="5F523568-FEC4-7D80-9A84-725CC994FA1B"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

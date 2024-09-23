@@ -1,0 +1,18 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="D102EF46-05D1-BD67-06B1-1FD363AA03E9" containerWithKeyObject="1654ADD2-6AD7-E649-8355-51E0D396B275" localFKIndex="D61FA65B-D0D8-DCF5-3206-53599A6708D3" name="Planificaciones_Parvularias_FK">
+<sourceDDLFile>ddl.ddl</sourceDDLFile>
+<createdBy>dirtyg</createdBy>
+<createdTime>2024-09-03 02:05:10 UTC</createdTime>
+<ownerDesignName>PárvuloConnect</ownerDesignName>
+<importedID>C0BD4407-0FB0-F572-4710-477A5F0C9719</importedID>
+<referredTableLongName>Parvularias</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>6E14D928-01CD-8B9C-3071-604E7BBDAD31</referredTableID>
+<keyObject>5F1CD56A-9B3B-1261-7412-BFA601933E54</keyObject>
+<referredKeyID>5F1CD56A-9B3B-1261-7412-BFA601933E54</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>ID_Parvularia</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

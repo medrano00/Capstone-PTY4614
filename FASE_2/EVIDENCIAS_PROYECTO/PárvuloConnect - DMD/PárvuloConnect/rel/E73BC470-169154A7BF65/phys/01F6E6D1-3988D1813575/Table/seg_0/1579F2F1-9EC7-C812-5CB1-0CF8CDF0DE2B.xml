@@ -1,0 +1,65 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TableProxyOraclev20c class="oracle.dbtools.crest.model.design.storage.oracle.v20c.TableProxyOraclev20c" name="Usuarios" directorySegmentName="seg_0" id="1579F2F1-9EC7-C812-5CB1-0CF8CDF0DE2B">
+<createdBy>dirtyg</createdBy>
+<createdTime>2024-09-03 02:05:10 UTC</createdTime>
+<ownerDesignName>PárvuloConnect</ownerDesignName>
+<logging>YES</logging>
+<partitionedRowMovement>DISABLE</partitionedRowMovement>
+<temporaryChanged>false</temporaryChanged>
+<accessDriverType>oracle_loader</accessDriverType>
+<rejectLimit></rejectLimit>
+<columnProxies itemClass="oracle.dbtools.crest.model.design.storage.oracle.v12c.ColumnProxyOraclev12c">
+<ColumnProxy name="Nombre" id="0DE4D229-90EE-137B-F475-A2F431378940">
+<createdBy>dirtyg</createdBy>
+<createdTime>2024-09-03 02:05:10 UTC</createdTime>
+<ownerDesignName>PárvuloConnect</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="Correo_Electronico" id="0F2FE97D-49BF-6BD7-FD0E-79E06D765DAF">
+<createdBy>dirtyg</createdBy>
+<createdTime>2024-09-03 02:05:10 UTC</createdTime>
+<ownerDesignName>PárvuloConnect</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="Fecha_Registro" id="9BA97268-225D-9F84-66D4-757605DC0D93">
+<createdBy>dirtyg</createdBy>
+<createdTime>2024-09-03 02:05:10 UTC</createdTime>
+<ownerDesignName>PárvuloConnect</ownerDesignName>
+<defaultValue>CURRENT_DATE</defaultValue>
+</ColumnProxy>
+<ColumnProxy name="Rol" id="B4184E8C-4FEB-692B-F850-B73ED35A561F">
+<createdBy>dirtyg</createdBy>
+<createdTime>2024-09-03 02:05:10 UTC</createdTime>
+<ownerDesignName>PárvuloConnect</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="ID_Usuario" id="B5736588-C61B-7D52-36CD-37D00E401EFA">
+<createdBy>dirtyg</createdBy>
+<createdTime>2024-09-03 02:05:10 UTC</createdTime>
+<ownerDesignName>PárvuloConnect</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="Apellido" id="C4A745E3-5265-3D52-96EA-9588173FF335">
+<createdBy>dirtyg</createdBy>
+<createdTime>2024-09-03 02:05:10 UTC</createdTime>
+<ownerDesignName>PárvuloConnect</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="Contraseña" id="CEF053E8-BE0A-6089-C608-5267C39944A8">
+<createdBy>dirtyg</createdBy>
+<createdTime>2024-09-03 02:05:10 UTC</createdTime>
+<ownerDesignName>PárvuloConnect</ownerDesignName>
+</ColumnProxy>
+</columnProxies>
+<primaryKeys>
+<PrimaryKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.PKProxyOraclev10g" name="Usuarios_PK" id="3704186E-968C-C92B-29FE-7A4280F267D5">
+<createdBy>dirtyg</createdBy>
+<createdTime>2024-09-03 02:05:10 UTC</createdTime>
+<ownerDesignName>PárvuloConnect</ownerDesignName>
+<indexSort>SORTED</indexSort>
+</PrimaryKey>
+</primaryKeys>
+<uniqueKeys>
+<UniqueKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.UniqueOraclev10g" name="INDEX_1" id="FBBC4332-B619-2D05-3594-70D73A98BA32">
+<createdBy>dirtyg</createdBy>
+<createdTime>2024-09-03 02:05:10 UTC</createdTime>
+<ownerDesignName>PárvuloConnect</ownerDesignName>
+<indexSort>SORTED</indexSort>
+</UniqueKey>
+</uniqueKeys>
+</TableProxyOraclev20c>

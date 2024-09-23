@@ -1,0 +1,20 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="Mensajes_Usuarios_FKv1" directorySegmentName="seg_0" id="AA43D8E5-1427-7EC0-1AAE-38B474A4FFCC">
+<createdBy>dirtyg</createdBy>
+<createdTime>2024-09-03 02:12:01 UTC</createdTime>
+<generatorID>5B9714F4-BBA6-6A77-2936-C357AC49E101</generatorID>
+<ownerDesignName>PárvuloConnect</ownerDesignName>
+<engineerTo>
+<item key="E73BC470-0741-044E-CDFE-169154A7BF65" value="true"/>
+</engineerTo>
+<sourcePk>A8F14767-AC08-8E76-082D-084B1E4D95B1</sourcePk>
+<identifying>false</identifying>
+<optionalSource>true</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>DF310A9E-5DBA-386C-E72F-A871959755C3</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>6A195602-0507-1340-170A-004184795072</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

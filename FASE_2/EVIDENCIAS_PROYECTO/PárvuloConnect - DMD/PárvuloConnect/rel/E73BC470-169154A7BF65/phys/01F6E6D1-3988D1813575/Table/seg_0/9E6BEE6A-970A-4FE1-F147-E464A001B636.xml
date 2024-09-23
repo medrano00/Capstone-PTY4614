@@ -1,0 +1,58 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TableProxyOraclev20c class="oracle.dbtools.crest.model.design.storage.oracle.v20c.TableProxyOraclev20c" name="Niños" directorySegmentName="seg_0" id="9E6BEE6A-970A-4FE1-F147-E464A001B636">
+<createdBy>dirtyg</createdBy>
+<createdTime>2024-09-03 02:05:10 UTC</createdTime>
+<ownerDesignName>PárvuloConnect</ownerDesignName>
+<logging>YES</logging>
+<partitionedRowMovement>DISABLE</partitionedRowMovement>
+<temporaryChanged>false</temporaryChanged>
+<accessDriverType>oracle_loader</accessDriverType>
+<rejectLimit></rejectLimit>
+<columnProxies itemClass="oracle.dbtools.crest.model.design.storage.oracle.v12c.ColumnProxyOraclev12c">
+<ColumnProxy name="Apellido" id="11956529-B42A-D428-CF30-BE6390985DAE">
+<createdBy>dirtyg</createdBy>
+<createdTime>2024-09-03 02:05:10 UTC</createdTime>
+<ownerDesignName>PárvuloConnect</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="Fecha_Nacimiento" id="3656D19F-6606-9593-B6BD-A781C09A0DF1">
+<createdBy>dirtyg</createdBy>
+<createdTime>2024-09-03 02:05:10 UTC</createdTime>
+<ownerDesignName>PárvuloConnect</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="Nombre" id="6B77B11F-F9EC-6AE8-279B-E62C5790D2BF">
+<createdBy>dirtyg</createdBy>
+<createdTime>2024-09-03 02:05:10 UTC</createdTime>
+<ownerDesignName>PárvuloConnect</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="ID_Apoderado" id="9B59EE78-2868-11E7-498A-E48A4970EB49">
+<createdBy>dirtyg</createdBy>
+<createdTime>2024-09-03 02:05:10 UTC</createdTime>
+<ownerDesignName>PárvuloConnect</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="Informacion_Adicional" id="B8C18AEF-D0F4-D8AC-EDF6-3D41975E65E4">
+<createdBy>dirtyg</createdBy>
+<createdTime>2024-09-03 02:05:10 UTC</createdTime>
+<ownerDesignName>PárvuloConnect</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="ID_Niño" id="FDE59C98-F909-CBFA-7E03-9DA3C56D0025">
+<createdBy>dirtyg</createdBy>
+<createdTime>2024-09-03 02:05:10 UTC</createdTime>
+<ownerDesignName>PárvuloConnect</ownerDesignName>
+</ColumnProxy>
+</columnProxies>
+<foreignKeys>
+<ForeignKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.FKProxyOraclev10g" name="Niños_Usuarios_FK" id="998B60E7-65E9-61A2-5075-EDF9FE1D4EF9">
+<createdBy>dirtyg</createdBy>
+<createdTime>2024-09-03 02:05:10 UTC</createdTime>
+<ownerDesignName>PárvuloConnect</ownerDesignName>
+</ForeignKey>
+</foreignKeys>
+<primaryKeys>
+<PrimaryKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.PKProxyOraclev10g" name="Niños_PK" id="239A5974-F748-F318-CB8B-DB930F20D88B">
+<createdBy>dirtyg</createdBy>
+<createdTime>2024-09-03 02:05:10 UTC</createdTime>
+<ownerDesignName>PárvuloConnect</ownerDesignName>
+<indexSort>SORTED</indexSort>
+</PrimaryKey>
+</primaryKeys>
+</TableProxyOraclev20c>

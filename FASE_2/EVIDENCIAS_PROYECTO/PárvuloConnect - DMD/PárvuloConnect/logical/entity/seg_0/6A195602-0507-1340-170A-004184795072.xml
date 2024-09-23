@@ -1,0 +1,105 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="6A195602-0507-1340-170A-004184795072" name="Mensajes">
+<createdBy>dirtyg</createdBy>
+<createdTime>2024-09-03 02:12:01 UTC</createdTime>
+<generatorID>1BD5A126-32B5-8689-0E13-58DE58C9077B</generatorID>
+<ownerDesignName>PárvuloConnect</ownerDesignName>
+<engineerTo>
+<item key="E73BC470-0741-044E-CDFE-169154A7BF65" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="ID Mensaje" id="76E90092-36D8-5069-E6D7-C2238CAD506A">
+<createdBy>dirtyg</createdBy>
+<createdTime>2024-09-03 02:12:01 UTC</createdTime>
+<generatorID>9829DE1F-F5E2-8477-64C6-D3EF161F068D</generatorID>
+<ownerDesignName>PárvuloConnect</ownerDesignName>
+<engineerTo>
+<item key="E73BC470-0741-044E-CDFE-169154A7BF65" value="true"/>
+</engineerTo>
+<use>0</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<domain>C6D7E221-0F90-4B88-B2F5-7FDE2A3BB41C</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="ID Emisor" id="F3CEC610-13E3-F7F3-FD76-F42C7025A92E">
+<createdBy>dirtyg</createdBy>
+<createdTime>2024-09-03 02:12:01 UTC</createdTime>
+<generatorID>7FF5C5A3-CDD0-F808-0B2C-BE4239094DF7</generatorID>
+<ownerDesignName>PárvuloConnect</ownerDesignName>
+<engineerTo>
+<item key="E73BC470-0741-044E-CDFE-169154A7BF65" value="true"/>
+</engineerTo>
+<referedAttribute>49EAE735-EE5B-0402-C42E-557CE014D0C4</referedAttribute>
+<use>0</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<domain>C6D7E221-0F90-4B88-B2F5-7FDE2A3BB41C</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="ID Receptor" id="53EF88EA-B75B-83EC-43D1-6AE415AEBCDF">
+<createdBy>dirtyg</createdBy>
+<createdTime>2024-09-03 02:12:01 UTC</createdTime>
+<generatorID>AA43D8E5-1427-7EC0-1AAE-38B474A4FFCC</generatorID>
+<ownerDesignName>PárvuloConnect</ownerDesignName>
+<engineerTo>
+<item key="E73BC470-0741-044E-CDFE-169154A7BF65" value="true"/>
+</engineerTo>
+<referedAttribute>49EAE735-EE5B-0402-C42E-557CE014D0C4</referedAttribute>
+<use>0</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<domain>C6D7E221-0F90-4B88-B2F5-7FDE2A3BB41C</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="Contenido" id="311BCED2-A133-1A9F-9369-C576D90CFDC3">
+<createdBy>dirtyg</createdBy>
+<createdTime>2024-09-03 02:12:01 UTC</createdTime>
+<generatorID>F51848BA-3875-1027-E619-D6CA37A49ACE</generatorID>
+<ownerDesignName>PárvuloConnect</ownerDesignName>
+<engineerTo>
+<item key="E73BC470-0741-044E-CDFE-169154A7BF65" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>300 BYTE</dataTypeSize>
+<ownDataTypeParameters>300 BYTE,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="Fecha Hora" id="A597048A-36C3-F771-EEF3-801CD96D2AA5">
+<createdBy>dirtyg</createdBy>
+<createdTime>2024-09-03 02:12:01 UTC</createdTime>
+<generatorID>543EA248-6291-0E2C-98B2-F36B2DD36F6A</generatorID>
+<ownerDesignName>PárvuloConnect</ownerDesignName>
+<engineerTo>
+<item key="E73BC470-0741-044E-CDFE-169154A7BF65" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT008</logicalDatatype>
+<defaultValue>CURRENT_TIMESTAMP</defaultValue>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="50A4A5B7-600A-A3A5-A08A-6BE5CB878DB9" name="Mensajes PK">
+<createdBy>dirtyg</createdBy>
+<createdTime>2024-09-03 02:12:01 UTC</createdTime>
+<generatorID>D0B95623-2717-CACD-D1AE-A2D1B90867B5</generatorID>
+<ownerDesignName>PárvuloConnect</ownerDesignName>
+<engineerTo>
+<item key="E73BC470-0741-044E-CDFE-169154A7BF65" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>76E90092-36D8-5069-E6D7-C2238CAD506A</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>
