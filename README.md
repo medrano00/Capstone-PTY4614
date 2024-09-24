@@ -18,7 +18,7 @@ Aquí se irán albergando los documentos pedidos por el docente como bien el pro
 
 Para inicializar el proyecto, como está basado en Django, se debe descargar (en ZIP) o clonar mediante el siguiente comando:
 
-`git clone https://github.com/medrano00/ESPINOZA_FABIAN_LAGOS_BASTIAN_VIDAL_BRANDON/tree/ParvuloConnect.git`
+`git clone -b ParvuloConnect https://github.com/medrano00/ESPINOZA_FABIAN_LAGOS_BASTIAN_VIDAL_BRANDON/`
 
 Una vez descargado este, abriremos la terminal donde se descargó el documento y ejecutaremos el siguiente comando:
 
