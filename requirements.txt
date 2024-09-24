@@ -1,0 +1,6 @@
+Django
+Pillow
+selenium
+djangorestframework
+django-crispy-forms
+crispy-bootstrap5
