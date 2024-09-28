@@ -4,118 +4,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{% static 'img/favicon2.png' %}" type="image/x-icon" sizes="512x512">
     <title>PárvuloConnect</title>
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
-<style>
-    body, html {
-        margin: 0;
-        padding: 0;
-        font-family: Arial, sans-serif;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-    }
-
-    body {
-        background-image: url(../../../static/img/parvuloconnect.jpeg);
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        height: 100vh;
-    }
-
-    .main-container {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        min-height: 100vh;
-    }
-
-    /* Cabecera verde con título */
-    .header-banner {
-        background-color: rgba(76, 175, 80, 0.9); 
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 10px;
-        color: white;
-        border-radius: 10px;
-        margin: 20px;
-    }
-
-    /* Título del proyecto */
-    .project-title {
-        font-size: 2.5rem;
-        font-family: 'Comic Sans MS', sans-serif;
-        text-align: center;
-        margin: 0;
-        flex-grow: 1;
-    }
-
-    /* Botón de inicio de sesión */
-    .btn-login {
-        font-size: 2.5rem; 
-        color: white;
-        text-decoration: none;
-    }
-
-    .btn-login:hover {
-        color: #f1f1f1;
-    }
-
-    .btn-login i {
-        font-size: 2.5rem;
-    }
-
-    .btn-login {
-        font-size: 1.5rem;
-        color: white;
-        text-decoration: none;
-    }
-
-    .btn-login:hover {
-        color: #f1f1f1;
-    }
-
-    /* Pie de página */
-    footer {
-        text-align: center;
-        color: #333;
-        font-size: 0.9rem;
-        background-color: rgba(255, 255, 255, 0.8);
-        padding: 10px;
-        border-radius: 10px;
-        margin: 20px;
-        margin-top: auto; 
-    }
-
-    footer a {
-        color: #3b5998;
-        text-decoration: none;
-    }
-
-    footer a:hover {
-        text-decoration: underline;
-    }
-</style>
 <body>
     <div class="main-container">
         <header>
             <div class="header-banner">
                 <h1 class="project-title">PárvuloConnect</h1>
-                <div class="login-button">
-                    <a href="{% url 'login' %}" class="btn-login"><i class="fas fa-user-circle"></i></a>
-                </div>
+                {% if user.is_authenticated %}
+                    <div class="login-button">
+                        <div class="dropdown">
+                            <a href="#" class="btn-login dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-user-circle"></i>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="portal/">Portal</a>
+                                <a class="dropdown-item" href="{% url 'logout' %}">Cerrar sesión</a>
+                            </div>
+                        </div>
+                    </div> 
             </div>
+                {% else %}
+                    <div class="login-button">
+                        <a href="{% url 'login' %}" class="btn-login"><i class="fas fa-user-circle"></i></a>
+                    </div>
+                {% endif %}
         </header>
+    </div>
 
         <footer>
             <p>- <a href="#">Políticas de Privacidad</a> - | - <a href="#">Términos y Condiciones</a> -</p>
-            <p>© 2024 PárvuloConnect. Todos los derechos reservados.</p>
+            <p>© 2024 PárvuloConnect. Todos los derechos reservados.</p>&nbsp;<a href="https://github.com/medrano00/ESPINOZA_FABIAN_LAGOS_BASTIAN_VIDAL_BRANDON/tree/ParvuloConnect">GitHub del Proyecto</a>
         </footer>
     </div>
 </body>
 </html>
 
-
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
