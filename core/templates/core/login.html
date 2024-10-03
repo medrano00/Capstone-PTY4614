@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{% static 'img/favicon2.png' %}" type="image/x-icon">
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <title>PárvuloConnect - Iniciar Sesión</title>
+</head>
+<body class="login-page">
+    <div class="login-container">
+        <div class="login-box">
+            <span class="mb-0 text-muted">
+                {% if msg %}
+                    {{ msg | safe }}
+                    <br>
+                    <br>
+                {% else %}
+                    <h1 class="title">PárvuloConnect</h1>
+                    <hr>
+                    <br>
+                {% endif %}
+              </span>
+            <form id="loginForm" method="post" class="login-form">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary">Iniciar sesión</button>
+                <br>
+                <br>
+                <button type="button" class="btn btn-primary" onclick="window.location.href='{% url 'register' %}'">Regístrese</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
