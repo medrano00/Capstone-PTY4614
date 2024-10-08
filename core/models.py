@@ -9,18 +9,18 @@ class Apoderado(models.Model):
     email = models.EmailField('Email', max_length=50)
     direccion = models.CharField('Direccion', max_length=50)
     is_apoderado = models.BooleanField('Es Apoderado', default=False)
-    niño = models.ForeignKey('Niño', blank=True, on_delete=models.CASCADE, related_name='niño_del_apoderado')
+    niño = models.ManyToManyField('Niño', related_name='niño')
 
     def __str__(self):
         return self.nombre
 
 class User(AbstractUser):
-    apoderado = models.ForeignKey(Apoderado, on_delete=models.SET_NULL, null=True, blank=True)
+    apoderado = models.OneToOneField(Apoderado, on_delete=models.SET_NULL, null=True, blank=True)
     is_parvularia = models.BooleanField('Es Parvularia', default=False)
     is_apoderado = models.BooleanField('Es Apoderado', default=False)
 
 class Niño(models.Model):
-    apoderado = models.ForeignKey(Apoderado, on_delete=models.CASCADE, related_name='apoderado_del_niño')
+    apoderado = models.ForeignKey(Apoderado, on_delete=models.CASCADE, related_name='apoderado')
     nombre = models.CharField('Nombre', max_length=50)
     apellido = models.CharField('Apellido', max_length=50)
     edad = models.IntegerField('Edad')
