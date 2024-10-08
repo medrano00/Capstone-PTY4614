@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .forms import SignUpForm, LoginForm
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
+from .models import *
 
 # Create your views here.
 
@@ -58,11 +59,11 @@ def perfilNiño(request):
         return HttpResponse("Solo los apoderados pueden acceder a esta página.")
     
     try:
-        apoderado = user.apoderado
-    except request.Apoderado.DoesNotExist:
+        apoderado = User.apoderado
+    except Apoderado.DoesNotExist:
         # Manejar el caso en que no hay un Apoderado asociado
         return HttpResponse("No se ha registrado ningún Apoderado para este usuario.")
-    niño = apoderado.niño  # Obtenemos el niño asociado al apoderado
+    niño = Apoderado.niño  # Obtenemos el niño asociado al apoderado
     return render(request, 'core/perfilNiño.html', {'apoderado': apoderado,'niño': niño})
 
 def logout_view(request):
