@@ -3,6 +3,9 @@ from .forms import SignUpForm, LoginForm
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
 from .models import *
+from django.http import HttpResponseRedirect, Http404
+from django.views.defaults import page_not_found
+
 # Create your views here.
 
 def index(request):
@@ -32,10 +35,10 @@ def login_view(request):
             user = authenticate(username=username, password=password)
             if user is not None and user.is_parvularia:
                 login(request, user)
-                return redirect('parvularia')
+                return redirect('index')
             elif user is not None and user.is_apoderado:
                 login(request, user)
-                return redirect('apoderado')
+                return redirect('index')
             elif user is not None and user.is_superuser:
                 login(request, user)
                 return redirect('index')
@@ -46,11 +49,17 @@ def login_view(request):
     return render(request, 'core/login.html', {'form': form, 'msg': msg})
 
 def parvularia(request):
-    return render(request, 'core/parvularia.html')
-
+    if request.user.is_parvularia:
+        return render(request, 'core/parvularia.html')
+    else:
+        return render(request, 'core/403.html', status=403)
+        
 def apoderado(request):
-    return render(request, 'core/apoderado.html')
-
+    if request.user.is_apoderado:
+        return render(request, 'core/apoderado.html')
+    else:
+        return render(request, 'core/403.html', status=403)
+    
 def perfilNiño(request):
     user = request.user
     
@@ -58,13 +67,16 @@ def perfilNiño(request):
         return HttpResponse("Solo los apoderados pueden acceder a esta página.")
     
     try:
-        apoderado = User.apoderado
-    except Apoderado.DoesNotExist:
+        apoderado = Apoderado.userApoderado
+    except User.DoesNotExist:
         # Manejar el caso en que no hay un Apoderado asociado
         return HttpResponse("No se ha registrado ningún Apoderado para este usuario.")
-    niño = Apoderado.niño  # Obtenemos el niño asociado al apoderado
+    niño = Niño.userNiño  # Obtenemos el niño asociado al apoderado
     return render(request, 'core/perfilNiño.html', {'apoderado': apoderado,'niño': niño})
 
 def logout_view(request):
     logout(request)
     return redirect('index')
+
+def custom_404_view(request, exception):
+    return render(request, 'core/404.html', status=404)

@@ -21,10 +21,17 @@
                             <a href="#" class="btn-login dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-user-circle"></i>
                             </a>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" href="portal/">Portal</a>
-                                <a class="dropdown-item" href="{% url 'logout' %}">Cerrar sesión</a>
-                            </div>
+                            {% if user.is_parvularia %}
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" href="{% url 'parvularia' %}">Portal</a>
+                                    <a class="dropdown-item" href="{% url 'logout' %}">Cerrar sesión</a>
+                                </div>
+                            {% elif user.is_apoderado %}
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" href="{% url 'apoderado' %}">Portal</a>
+                                    <a class="dropdown-item" href="{% url 'logout' %}">Cerrar sesión</a>
+                                </div>
+                            {% endif %}
                         </div>
                     </div> 
             </div>
