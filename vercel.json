@@ -1,0 +1,15 @@
+{
+  "builds": [
+    {
+      "src": "parvuloconnect/manage.py",
+      "use": "@vercel/python",
+      "command": "python manage.py runserver --insecure"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "parvuloconnect/manage.py"
+    }
+  ]
+}
