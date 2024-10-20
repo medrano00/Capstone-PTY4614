@@ -3,7 +3,6 @@ from .forms import SignUpForm, LoginForm
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
 from .models import *
-from django.http import HttpResponseRedirect, Http404
 from django.views.defaults import page_not_found
 
 # Create your views here.
@@ -78,5 +77,8 @@ def logout_view(request):
     logout(request)
     return redirect('index')
 
-def custom_404_view(request, exception):
-    return render(request, 'core/404.html', status=404)
+def custom_404(request, exception):
+    return render(request, '404.html', status=404)
+
+def custom_500(request):
+    return render(request, '500.html', status=500)

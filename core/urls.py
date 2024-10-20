@@ -1,17 +1,18 @@
 from django.urls import path
-from . import views
+from .views import *
 from django.conf import settings
 from django.conf.urls.static import static
-from django.views.defaults import page_not_found
+from django.conf.urls import handler404, handler500
 
-handler404 = page_not_found
+handler404 = custom_404
+handler500 = custom_500
 
 urlpatterns = [
-    path('', views.index, name= 'index'),
-    path('login/', views.login_view, name='login'),
-    path('logout/', views.logout_view, name='logout'),
-    path('register/', views.register, name='register'),
-    path('parvularia/', views.parvularia, name='parvularia'),
-    path('apoderado/', views.apoderado, name='apoderado'),
-    path('apoderado/perfilNiño/', views.perfilNiño, name='perfilNiño'),
+    path('', index, name= 'index'),
+    path('login/', login_view, name='login'),
+    path('logout/', logout_view, name='logout'),
+    path('register/', register, name='register'),
+    path('parvularia/', parvularia, name='parvularia'),
+    path('apoderado/', apoderado, name='apoderado'),
+    path('apoderado/perfilNiño/', perfilNiño, name='perfilNiño'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
