@@ -30,3 +30,8 @@ class Niño(models.Model):
     
     def __str__(self):
         return self.user.nombre
+    
+class Planificacion(models.Model):
+    # Define los campos de tu modelo aquí
+    nombre = models.CharField(max_length=100)
+    fecha = models.DateField()

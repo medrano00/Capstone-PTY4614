@@ -82,3 +82,42 @@ def custom_404(request, exception):
 
 def custom_500(request):
     return render(request, '500.html', status=500)
+
+def portalAsistencia(request):
+    if request.user.is_parvularia:
+        return render(request, 'core/portalAsistencia.html')
+    else:
+        return render(request, 'core/403.html', status=403)
+
+def portalNotas(request):
+    if request.user.is_parvularia:
+        return render(request, 'core/portalNotas.html')
+    else:
+        return render(request, 'core/403.html', status=403)
+
+def guardarAsistencia(request):
+    if request.method == 'POST':
+        asistencia = request.POST
+
+        return HttpResponse('Asistencia guardada')
+    return redirect('portalAsistencia')
+
+def guardarNotas(request):
+    if request.method == 'POST':
+        notas = request.POST
+
+        return HttpResponse('Notas guardadas')
+    return redirect('portalNotas')
+
+# Nueva vista para planificaciones
+def planificaciones(request):
+    if request.user.is_parvularia:
+        return render(request, 'core/planificaciones.html')  # Asegúrate de que este archivo exista
+    else:
+        return render(request, 'core/403.html', status=403)  # Redirigir si no tiene permiso
+
+def planificacionesApoderado(request):
+    if request.user.is_apoderado:
+        return render(request, 'core/planificacionesApoderado.html')  # Asegúrate de que este archivo exista
+    else:
+        return render(request, 'core/403.html', status=403)  # Redirigir si no tiene permiso

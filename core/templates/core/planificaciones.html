@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planificaciones</title>
+    <link rel="stylesheet" href="{% static 'css/planificaciones.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.11.3/main.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.11.3/main.min.js"></script>
+</head>
+<body>
+
+<h1>Planificaciones para el Año 2024</h1>
+
+<div id="calendar"></div>
+
+<h2>Subir Planificación</h2>
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="date" name="planification-date" value="{{ today|date:'Y-m-d' }}" required>
+    <br>
+    <label for="file">Seleccionar archivo:</label>
+    <input type="file" name="file" id="file" required>
+    <button type="submit">Subir</button>
+</form>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            events: [
+                // Eventos cargados desde la base de datos
+            ]
+        });
+
+        calendar.render();
+    });
+</script>
+
+</body>
+</html>
+

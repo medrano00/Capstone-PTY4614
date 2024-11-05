@@ -75,18 +75,17 @@
     </style>
 </head>
 <body>
-    <div class="title">PárvuloConnect</div>
+    <div class="title" style="color: #ffffff;">PárvuloConnect</div>
     <div>
         <br>
         <br>
-        <p style="font-weight: bold; font-size: xx-large;">¡Hola, {{ request.user.nombre }}!</p>
+        <p style="font-weight: bold; font-size: xx-large; color: #000000;">¡Hola, {{ request.user.nombre }}!</p>
     </div>
     <div class="buttons">
         <!-- Botón que redirige al perfil del niño -->
-        <div><a href="{% url 'perfilNiño' %}" class="button">Perfil del Niño</a></div>
-        <div><a href="#" class="button">Subida de Fotos y Videos</a></div>
-        <div><a href="#" class="button">Comunicación Directa</a></div>
-        <div><a href="{% url 'logout' %}" class="button">Cerrar sesión</a></div>
+        <div ><a style="color:#ffffff;" href="{% url 'perfilNiño' %}" class="button">Perfil del Niño</a></div>
+        <div ><a style="color:#ffffff;" href="{% url 'planificacionesApoderado' %}" class="button">Planificaciones</a></div>
+        <div ><a style="color:#ffffff;" href="{% url 'logout' %}" class="button">Cerrar sesión</a></div>
     </div>
 </body>
 </html>
