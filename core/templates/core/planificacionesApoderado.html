@@ -1,51 +1,111 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Planificaciones</title>
-    <link rel="stylesheet" href="{% static 'css/planificaciones.css' %}">
+
+    <!-- Favicon -->
     <link rel="icon" href="{% static 'img/favicon2.png' %}" type="image/x-icon" sizes="512x512">
+
+    <!-- Estilos personalizados -->
+    <link rel="stylesheet" href="{% static 'css/planificaciones.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <!-- FullCalendar CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.11.3/main.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.11.3/main.min.js"></script>
+
     <style>
         body {
-            background-image: url(../../../static/img/planificaciones.png);
+            background-image: url("{% static 'img/planificaciones.png' %}");
+            background-size: cover;
+            font-family: Arial, sans-serif;
+        }
+
+        h1, h2 {
+            color: white;
+            text-align: center;
+            padding: 10px;
+        }
+
+        form {
+            text-align: center;
+            margin: 20px auto;
+        }
+
+        label, input, button {
+            display: block;
+            margin: 10px auto;
+            padding: 5px;
+            font-size: 1.1em;
+        }
+
+        #calendar {
+            max-width: 900px;
+            margin: 40px auto;
+            background-color: white;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        p.text-muted {
+            color: #ddd;
+            text-align: center;
+            margin-top: 50px;
         }
     </style>
+
+    <!-- FullCalendar JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.11.3/main.min.js"></script>
 </head>
+
 <body>
 
-<h1>Planificaciones para el Año 2024</h1>
+    <!-- Título de la página -->
+    <h1>Planificaciones para el Año 2024</h1>
 
-<div id="calendar"></div>
+    <!-- Calendario FullCalendar -->
+    <div id="calendar"></div>
 
-<h2>Subir Planificación</h2>
-<form method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
-    <input type="date" name="planification-date" value="{{ today|date:'Y-m-d' }}" required>
-    <br>
-    <label for="file">Seleccionar archivo:</label>
-    <input type="file" name="file" id="file" required>
-    <button type="submit">Subir</button>
-</form>
+    <!-- Formulario para subir archivos -->
+    <h2>Subir Planificación</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="file">Seleccionar archivo:</label>
+        <input type="file" name="myfile" id="file" required>
+        <button type="submit">Subir</button>
+        
+    </form>
+    </form>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var calendarEl = document.getElementById('calendar');
+    {% if uploaded_file_url %}
+    <p class="text-center">Archivo subido en: <a href="{{ uploaded_file_url }}">{{ uploaded_file_url }}</a></p>
+    {% endif %}
 
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-            initialView: 'dayGridMonth',
-            events: [
-                // Eventos cargados desde la base de datos
-            ]
+    <!-- Footer -->
+    <p class="mt-5 mb-3 text-muted">&copy; 2024 ParvuloConnect</p>
+
+    <!-- Script de FullCalendar -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar');
+
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                events: [
+                    // Aquí puedes cargar los eventos desde la base de datos
+                ]
+            });
+
+            calendar.render();
         });
-
-        calendar.render();
-    });
-</script>
+    </script>
 
 </body>
+
 </html>
+
 
