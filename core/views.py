@@ -4,6 +4,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
 from .models import *
 from django.views.defaults import page_not_found
+from django.conf import settings
+from django.core.files.storage import FileSystemStorage
 
 # Create your views here.
 
@@ -111,13 +113,35 @@ def guardarNotas(request):
 
 # Nueva vista para planificaciones
 def planificaciones(request):
+    if request.method == 'POST' and request.FILES.get('myfile'):
+        myfile = request.FILES['myfile']
+        fs = FileSystemStorage()
+        filename = fs.save(myfile.name, myfile)
+        uploaded_file_url = fs.url(filename)
+        
+        print(f"Uploaded file URL: {uploaded_file_url}")
+        
+        return render(request, 'core/planificaciones.html', {'uploaded_file_url': uploaded_file_url})
+    
     if request.user.is_parvularia:
-        return render(request, 'core/planificaciones.html')  # Asegúrate de que este archivo exista
+        return render(request, 'core/planificaciones.html')
     else:
-        return render(request, 'core/403.html', status=403)  # Redirigir si no tiene permiso
-
+        return render(request, 'core/403.html', status=403)
+        
 def planificacionesApoderado(request):
+
+    if request.method == 'POST' and request.FILES.get('myfile'):
+        myfile = request.FILES['myfile']
+        fs = FileSystemStorage()
+        filename = fs.save(myfile.name, myfile)
+        uploaded_file_url = fs.url(filename)
+        
+        print(f"Uploaded file URL: {uploaded_file_url}")
+        
+        return render(request, 'core/planificacionesApoderado.html', {'uploaded_file_url': uploaded_file_url})
+
     if request.user.is_apoderado:
         return render(request, 'core/planificacionesApoderado.html')  # Asegúrate de que este archivo exista
     else:
         return render(request, 'core/403.html', status=403)  # Redirigir si no tiene permiso
+
