@@ -21,8 +21,8 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('core.urls')),  # Incluir las URLs de la aplicación core
+    path('admin/', admin.site.urls, name='admin'),  # URL de administración
+    path('', include('core.urls', namespace='core')),  # Incluir las URLs de la aplicación core
 ]
 
 # Agregar el manejo de archivos subidos solo en modo de desarrollo (DEBUG=True)

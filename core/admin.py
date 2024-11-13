@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import User
+from .models import User, Estudiante, Curso, Asistencia
 
 # Register your models here.
 
@@ -8,4 +8,29 @@ class UserAdmin(admin.ModelAdmin):
     search_fields = ('rut', 'email')
     list_filter = ('is_apoderado', 'is_parvularia', 'is_niño')
 
+class AsistenciaInline(admin.TabularInline):
+    model = Asistencia
+    fields = ["fecha", "estado_asistencia"]
+    can_delete = True
+    extra = 1
+
+
+class BaseAdmin(admin.ModelAdmin):
+    readonly_fields = ("created", "updated")
+
+    class Meta:
+        abstract = True
+
+
+class CursoAdmin(BaseAdmin):
+    list_display = ("nombre_curso", "codigo_curso")
+
+
+class EstudianteAdmin(BaseAdmin):
+    list_display = ("nombre", "curso")
+    inlines = [AsistenciaInline]
+
+
 admin.site.register(User, UserAdmin)
+admin.site.register(Curso, CursoAdmin)
+admin.site.register(Estudiante, EstudianteAdmin)

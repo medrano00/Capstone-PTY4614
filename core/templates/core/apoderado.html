@@ -82,8 +82,6 @@
         <p style="font-weight: bold; font-size: xx-large; color: #000000;">¡Hola, {{ request.user.nombre }}!</p>
     </div>
     <div class="buttons">
-        <!-- Botón que redirige al perfil del niño -->
-        <div ><a style="color:#ffffff;" href="{% url 'perfilNiño' %}" class="button">Perfil del Niño</a></div>
         <div ><a style="color:#ffffff;" href="{% url 'planificacionesApoderado' %}" class="button">Planificaciones</a></div>
         <div ><a style="color:#ffffff;" href="{% url 'logout' %}" class="button">Cerrar sesión</a></div>
     </div>

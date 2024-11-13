@@ -1,11 +1,16 @@
-from django.shortcuts import render, redirect
-from .forms import SignUpForm, LoginForm
+from typing import Any
+from django.shortcuts import render, redirect, get_object_or_404
+from .forms import SignUpForm, LoginForm, AsistenciaForm
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
 from .models import *
 from django.views.defaults import page_not_found
 from django.conf import settings
+from django.contrib import messages
 from django.core.files.storage import FileSystemStorage
+from django.views.generic.list import ListView
+from django.views.generic.detail import DetailView
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 # Create your views here.
 
@@ -36,13 +41,13 @@ def login_view(request):
             user = authenticate(username=username, password=password)
             if user is not None and user.is_parvularia:
                 login(request, user)
-                return redirect('index')
+                return redirect('core:index')
             elif user is not None and user.is_apoderado:
                 login(request, user)
-                return redirect('index')
+                return redirect('core:index')
             elif user is not None and user.is_superuser:
                 login(request, user)
-                return redirect('index')
+                return redirect('core:index')
             else:
                 msg = 'Usuario o contraseña incorrectos'
         else:
@@ -60,24 +65,10 @@ def apoderado(request):
         return render(request, 'core/apoderado.html')
     else:
         return render(request, 'core/403.html', status=403)
-    
-def perfilNiño(request):
-    user = request.user
-    
-    if not user.is_apoderado:
-        return HttpResponse("Solo los apoderados pueden acceder a esta página.")
-    
-    try:
-        apoderado = Apoderado.userApoderado
-    except User.DoesNotExist:
-        # Manejar el caso en que no hay un Apoderado asociado
-        return HttpResponse("No se ha registrado ningún Apoderado para este usuario.")
-    niño = Niño.userNiño  # Obtenemos el niño asociado al apoderado
-    return render(request, 'core/perfilNiño.html', {'apoderado': apoderado,'niño': niño})
 
 def logout_view(request):
     logout(request)
-    return redirect('index')
+    return redirect('core:index')
 
 def custom_404(request, exception):
     return render(request, '404.html', status=404)
@@ -85,11 +76,92 @@ def custom_404(request, exception):
 def custom_500(request):
     return render(request, '500.html', status=500)
 
-def portalAsistencia(request):
-    if request.user.is_parvularia:
-        return render(request, 'core/portalAsistencia.html')
-    else:
-        return render(request, 'core/403.html', status=403)
+class portalAsistencia(ListView):
+    model = Curso
+    template_name = 'core/portalAsistencia.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['object_list'] = self.object_list.order_by('-created')
+        return context
+
+
+class CursoDetailView(DetailView):
+    model = Curso
+    template_name = "core/portalAsistenciaDetail.html"
+    context_object_name = "curso"
+
+    def get_object(self):
+        codigo_curso = self.kwargs["codigo_curso"]
+        return get_object_or_404(Curso, codigo_curso=codigo_curso)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        # Filtros de búsqueda
+        search_query = self.request.GET.get("q", "")
+        date_filter = self.request.GET.get("date", "")
+        estado_filter = self.request.GET.get("estado", "")
+
+        try:
+            asistencias = Asistencia.objects.filter(estudiante__curso=self.object)
+
+            if search_query:
+                asistencias = asistencias.filter(estudiante__nombre__icontains=search_query)
+            if date_filter:
+                asistencias = asistencias.filter(fecha=date_filter)
+            if estado_filter:
+                asistencias = asistencias.filter(estado_asistencia=estado_filter)
+
+            paginator = Paginator(asistencias, 10)
+            page = self.request.GET.get("page")
+            try:
+                asistencias_paginadas = paginator.page(page)
+            except PageNotAnInteger:
+                asistencias_paginadas = paginator.page(1)
+            except EmptyPage:
+                asistencias_paginadas = paginator.page(paginator.num_pages)
+
+            context["asistencias"] = asistencias_paginadas
+            context["form"] = AsistenciaForm(curso=self.object)
+            context["paginator"] = paginator
+        except Exception as e:
+            messages.error(self.request, f"Error al cargar asistencias: {str(e)}")
+
+        return context
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+
+        asistencia_id = request.POST.get("asistencia_id")
+        if asistencia_id:
+            try:
+                # Proceso de actualización
+                asistencia = get_object_or_404(Asistencia, id=asistencia_id)
+                estado_asistencia = request.POST.get("estado_asistencia")
+                asistencia.estado_asistencia = estado_asistencia
+                asistencia.save()
+                messages.success(request, "Estado de asistencia actualizado exitosamente.")
+                return redirect(request.path)
+            except Exception as e:
+                messages.error(request, f"Error al actualizar asistencia: {str(e)}")
+        else:
+            try:
+                # Proceso de creación de nueva asistencia
+                form = AsistenciaForm(request.POST, curso=self.object)
+                if form.is_valid():
+                    form.save()
+                    messages.success(request, "Asistencia registrada exitosamente.")
+                    return redirect(request.path)
+                else:
+                    context = self.get_context_data(object=self.object)
+                    context["form"] = form
+                    return self.render_to_response(context)
+            except Exception as e:
+                messages.error(request, f"Error al registrar nueva asistencia: {str(e)}")
+
+        return self.get(request, *args, **kwargs)
+
 
 def portalNotas(request):
     if request.user.is_parvularia:

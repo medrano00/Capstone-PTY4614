@@ -63,38 +63,26 @@
   <body>
     <div class="container mt-4">
       <h1 style="align-items: center; display: flex;">Portal de Asistencia</h1>
-      <a href="{% url 'parvularia' %}">Regresar al portal</a>
+      <a href="{% url 'core:parvularia' %}">Regresar al portal</a>
       <br />
-      <form id="attendanceForm" action="{% url 'guardarAsistencia' %}" method="POST">
-        <table class="attendance-table">
-            <tr>
-            <th>Fecha</th>
-            <th>Presente</th>
-            <th>Ausente</th>
-            <th>Nombre del alumno</th>
-            </tr>
-            <tr>
-            <td><input type="date" name="attendance-date" value="{{today|date:'Y-m-d'}} required"></td>
-            <td><input type="radio" name="attendance1" value="presente" /></td>
-            <td><input type="radio" name="attendance1" value="ausente" /></td>
-            <td class="student-name">Sebastián Muñoz</td>
-            </tr>
-            <tr>
-            <td><input type="date" name="attendance-date" value="{{today|date:'Y-m-d'}} required"></td>
-            <td><input type="radio" name="attendance2" value="presente" /></td>
-            <td><input type="radio" name="attendance2" value="ausente" /></td>
-            <td class="student-name">Ignacio Pinto</td>
-            </tr>
-            <tr>
-            <td><input type="date" name="attendance-date" value="{{today|date:'Y-m-d'}} required"></td>
-            <td><input type="radio" name="attendance3" value="presente" /></td>
-            <td><input type="radio" name="attendance3" value="ausente" /></td>
-            <td class="student-name">Stephanie Vargas</td>
-            </tr>
-        </table>
-      <button type="submit" class="btn btn-primary"><a style="color: #ffffff" href="{% url 'parvularia' %}">Guardar</a></button>
-    </form>
     </div>
+
+    <main role="main">
+      <div class="container mb-4">
+          <h2 class="text-center">Cursos</h2>
+          <div class="row text-center">
+            {% for curso in object_list %}
+            <div style="text-align: center;">
+              <br>
+                <h5>{{ curso.nombre_curso }}</h5>
+                <a href="{% url 'core:curso' curso.codigo_curso %}" class="profile-link">ver asistencias</a>
+            </div>
+            {% empty %}
+            <p>No hay cursos disponibles.</p>
+            {% endfor %}
+          </div>    
+      </div>
+  </main>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>

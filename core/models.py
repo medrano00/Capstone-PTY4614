@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 
 class User(AbstractUser):
-    rut = models.CharField('Rut', max_length=10, default='11.111.111-1')
+    rut = models.CharField('Rut', max_length=12, default='11.111.111-1')
     nombre = models.CharField('Nombre', max_length=50, default='')
     apellido = models.CharField('Apellido', max_length=50, default='')
     edad = models.PositiveIntegerField('Edad', default=1)
@@ -19,15 +19,7 @@ class User(AbstractUser):
 
 class Apoderado(models.Model):
     userApoderado = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-    niñodelApoderado = models.ForeignKey('Niño', on_delete=models.CASCADE)
 
-    def __str__(self):
-        return self.user.nombre
-    
-class Niño(models.Model):
-    userNiño = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-    apoderadodelNiño = models.ForeignKey(Apoderado, on_delete=models.CASCADE)
-    
     def __str__(self):
         return self.user.nombre
     
@@ -35,3 +27,53 @@ class Planificacion(models.Model):
     # Define los campos de tu modelo aquí
     nombre = models.CharField(max_length=100)
     fecha = models.DateField()
+
+class Base(models.Model):
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        abstract = True
+
+
+class Curso(Base):
+    codigo_curso = models.CharField(max_length=20, unique=True)
+    nombre_curso = models.CharField(max_length=100)
+
+    class Meta:
+        ordering = ["created"]
+
+    def __str__(self):
+        return self.nombre_curso
+
+
+class Estudiante(Base):
+    id_estudiante = models.CharField(max_length=20, unique=True)
+    nombre = models.CharField(max_length=100)
+    curso = models.ForeignKey(Curso, on_delete=models.CASCADE, related_name="estudiantes")
+
+    def __str__(self):
+        return self.nombre
+
+    class Meta:
+        ordering = ["created"]
+
+
+class Asistencia(Base):
+
+    ESTADO_CHOICES = [("P", "Presente"), ("A", "Ausente")]
+
+    estudiante = models.ForeignKey(
+        Estudiante, on_delete=models.CASCADE, related_name="asistencias"
+    )
+    fecha = models.DateField()
+    estado_asistencia = models.CharField(max_length=1, choices=ESTADO_CHOICES)
+
+    def __str__(self):
+        return (
+            f"{self.estudiante.nombre} - {self.created} - "
+            f"{self.get_estado_asistencia_display()}"
+        )
+
+    class Meta:
+        ordering = ["fecha"]

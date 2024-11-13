@@ -23,13 +23,13 @@
                             </a>
                             {% if user.is_parvularia %}
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item" href="{% url 'parvularia' %}">Portal</a>
-                                    <a class="dropdown-item" href="{% url 'logout' %}">Cerrar sesión</a>
+                                    <a class="dropdown-item" href="{% url 'core:parvularia' %}">Portal</a>
+                                    <a class="dropdown-item" href="{% url 'core:logout' %}">Cerrar sesión</a>
                                 </div>
                             {% elif user.is_apoderado %}
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item" href="{% url 'apoderado' %}">Portal</a>
-                                    <a class="dropdown-item" href="{% url 'logout' %}">Cerrar sesión</a>
+                                    <a class="dropdown-item" href="{% url 'core:apoderado' %}">Portal</a>
+                                    <a class="dropdown-item" href="{% url 'core:logout' %}">Cerrar sesión</a>
                                 </div>
                             {% endif %}
                         </div>
@@ -37,7 +37,7 @@
             </div>
                 {% else %}
                     <div class="login-button">
-                        <a href="{% url 'login' %}" class="btn-login"><i class="fas fa-user-circle"></i></a>
+                        <a href="{% url 'core:login' %}" class="btn-login"><i class="fas fa-user-circle"></i></a>
                     </div>
                 {% endif %}
         </header>
