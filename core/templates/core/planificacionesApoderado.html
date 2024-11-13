@@ -57,52 +57,30 @@
             margin-top: 50px;
         }
     </style>
-
-    <!-- FullCalendar JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.11.3/main.min.js"></script>
 </head>
 
 <body>
 
     <!-- Título de la página -->
     <h1>Planificaciones para el Año 2024</h1>
-
-    <!-- Calendario FullCalendar -->
-    <div id="calendar"></div>
+    <a href="{% url 'core:apoderado' %}">Regresar</a>
+    
+    {% for archivo in archivos %}
+    <div id="calendar">
+        {{ archivo.documento }}
+    </div>
+    {% endfor %}
 
     <!-- Formulario para subir archivos -->
-    <h2>Subir Planificación</h2>
     <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        <label for="file">Seleccionar archivo:</label>
-        <input type="file" name="myfile" id="file" required>
-        <button type="submit">Subir</button>
-        
-    </form>
-    </form>
-
-    {% if uploaded_file_url %}
-    <p class="text-center">Archivo subido en: <a href="{{ uploaded_file_url }}">{{ uploaded_file_url }}</a></p>
-    {% endif %}
+    	{% csrf_token %}
+    	{{ form.as_p }}
+    	<button type="submit">Subir</button>
+      </form>    
 
     <!-- Footer -->
     <p class="mt-5 mb-3 text-muted">&copy; 2024 ParvuloConnect</p>
 
-    <!-- Script de FullCalendar -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var calendarEl = document.getElementById('calendar');
-
-            var calendar = new FullCalendar.Calendar(calendarEl, {
-                initialView: 'dayGridMonth',
-                events: [
-                    // Aquí puedes cargar los eventos desde la base de datos
-                ]
-            });
-
-            calendar.render();
-        });
-    </script>
 
 </body>
 

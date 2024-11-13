@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 from django.contrib.auth.models import AbstractUser
 
 class User(AbstractUser):
@@ -24,9 +25,14 @@ class Apoderado(models.Model):
         return self.user.nombre
     
 class Planificacion(models.Model):
-    # Define los campos de tu modelo aquí
-    nombre = models.CharField(max_length=100)
-    fecha = models.DateField()
+    descripcion = models.CharField(max_length=255, blank=True)
+    documento = models.FileField(upload_to='planificaciones/', blank=True, null=True)
+    subido_a = models.DateTimeField(default=timezone.now)
+
+class PlanificacionApoderado(models.Model):
+    descripcion = models.CharField(max_length=255, blank=True)
+    documento = models.FileField(upload_to='actividades/', blank=True, null=True)
+    subido_a = models.DateTimeField(default=timezone.now)
 
 class Base(models.Model):
     created = models.DateTimeField(auto_now_add=True)

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import User, Estudiante, Curso, Asistencia
+from .models import User, Estudiante, Curso, Asistencia, Planificacion, PlanificacionApoderado
 
 # Register your models here.
 
@@ -30,7 +30,14 @@ class EstudianteAdmin(BaseAdmin):
     list_display = ("nombre", "curso")
     inlines = [AsistenciaInline]
 
+class PlanificacionAdmin(admin.ModelAdmin):
+    list_display = ("descripcion", "documento", "subido_a")
+
+class PlanificacionApoderadoAdmin(admin.ModelAdmin):
+    list_display = ("descripcion", "documento", "subido_a")
 
 admin.site.register(User, UserAdmin)
 admin.site.register(Curso, CursoAdmin)
 admin.site.register(Estudiante, EstudianteAdmin)
+admin.site.register(Planificacion, PlanificacionAdmin)
+admin.site.register(PlanificacionApoderado, PlanificacionApoderadoAdmin)

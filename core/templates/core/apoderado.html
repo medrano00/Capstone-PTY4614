@@ -82,8 +82,8 @@
         <p style="font-weight: bold; font-size: xx-large; color: #000000;">¡Hola, {{ request.user.nombre }}!</p>
     </div>
     <div class="buttons">
-        <div ><a style="color:#ffffff;" href="{% url 'planificacionesApoderado' %}" class="button">Planificaciones</a></div>
-        <div ><a style="color:#ffffff;" href="{% url 'logout' %}" class="button">Cerrar sesión</a></div>
+        <div ><a style="color:#ffffff;" href="{% url 'core:planificacionesApoderado' %}" class="button">Planificaciones</a></div>
+        <div ><a style="color:#ffffff;" href="{% url 'core:logout' %}" class="button">Cerrar sesión</a></div>
     </div>
 </body>
 </html>
