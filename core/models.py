@@ -13,7 +13,6 @@ class User(AbstractUser):
     direccion = models.CharField('Direccion', max_length=50, default='')
     is_apoderado = models.BooleanField('Es Apoderado', default=False)
     is_parvularia = models.BooleanField('Es Parvularia', default=False)
-    is_niño = models.BooleanField('Es Niño', default=False)
 
     def __str__(self):
         return self.nombre

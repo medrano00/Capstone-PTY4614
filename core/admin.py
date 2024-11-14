@@ -4,9 +4,9 @@ from .models import User, Estudiante, Curso, Asistencia, Planificacion, Planific
 # Register your models here.
 
 class UserAdmin(admin.ModelAdmin):
-    list_display = ('rut', 'edad', 'telefono', 'email', 'direccion', 'is_apoderado', 'is_parvularia', 'is_niño')
+    list_display = ('rut', 'edad', 'telefono', 'email', 'direccion', 'is_apoderado', 'is_parvularia')
     search_fields = ('rut', 'email')
-    list_filter = ('is_apoderado', 'is_parvularia', 'is_niño')
+    list_filter = ('is_apoderado', 'is_parvularia')
 
 class AsistenciaInline(admin.TabularInline):
     model = Asistencia
