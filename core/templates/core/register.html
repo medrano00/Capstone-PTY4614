@@ -14,6 +14,7 @@
   </head>
   <body class="login-page">
     <div class="login-container">
+      <p>¿Es parvularia y se está registrando por este método? <br> Comuníquese con el administrador para que le proporcione su rol correspondiente.</p>
       <span class="mb-0 text-muted">
         {% if msg %}
             {{ msg | safe }}
@@ -53,14 +54,6 @@
           <div class="form-group">
             <label for="{{ form.password2.id_for_label }}">Confirmar Contraseña: </label>
             {{ form.password2 }}
-          </div>
-          <div class="form-group">
-            <label for="{{ form.is_parvularia.id_for_label }}">Parvularia: </label>
-            {{ form.is_parvularia }}
-          </div>
-          <div class="form-group">
-            <label for="{{ form.is_apoderado.id_for_label }}">Apoderado: </label>
-            {{ form.is_apoderado }}
           </div>
           <hr>
           <br>

@@ -11,7 +11,7 @@ class User(AbstractUser):
     telefono = models.CharField('Telefono', max_length=9, default='')
     email = models.EmailField('Email', max_length=50, default='')
     direccion = models.CharField('Direccion', max_length=50, default='')
-    is_apoderado = models.BooleanField('Es Apoderado', default=False)
+    is_apoderado = models.BooleanField('Es Apoderado', default=True)
     is_parvularia = models.BooleanField('Es Parvularia', default=False)
 
     def __str__(self):

@@ -183,7 +183,7 @@ def guardarNotas(request):
         return HttpResponse('Notas guardadas')
     return redirect('portalNotas')
 
-# Nueva vista para planificaciones
+
 def planificaciones(request):
     if request.method == 'POST':
         form = PlanificacionForm(request.POST, request.FILES)
@@ -206,7 +206,7 @@ def planificacionesApoderado(request):
             form.save()
             return redirect('core:planificacionesApoderado')
     else:
-        form = PlanificacionForm()
+        form = PlanificacionApoderadoForm()
 
     if request.user.is_apoderado:
         archivos = Planificacion.objects.all()

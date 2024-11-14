@@ -64,11 +64,11 @@
     
     <!-- Título de la página -->
     <h1>Planificaciones para el Año 2024</h1>
-    <a href="{% url 'core:parvularia' %}">Regresar</a>
+    <a href="{% url 'core:parvularia' %}" class="btn btn-primary">Retornar a la página principal</a>
 
     {% for archivo in archivos %}
     <div id="calendar">
-        {{ archivo.documento }}
+       <a href="/media/{{ archivo.documento }}" download>{{ archivo.documento }}</a> 
     </div>
     {% endfor %}
 
