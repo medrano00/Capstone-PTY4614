@@ -62,10 +62,10 @@
 <body>
 
     <!-- Título de la página -->
-    <h1>Planificaciones para el Año 2024</h1>
+    <h1>Reportes del Año 2024</h1>
     <a href="{% url 'core:apoderado' %}" class="btn btn-primary">Retornar a la página principal</a>
     
-    {% for archivo in archivos %}
+    {% for reporte in reportes %}
     <div id="calendar">
         <p style="text-align: center; font-weight: bold; color: #000000;">Archivos subidos por Parvularia</p>
         <table>
@@ -75,8 +75,8 @@
                     <td>Peso del Archivo</td>
                 </tr>
                 <tr>
-                    <td><a href="/media/{{ archivo.documento }}" download>{{ archivo.descripcion }}</a></td>
-                    <td>{{ archivo.documento.size | filesizeformat }}</td>
+                    <td><a href="/media/{{ reporte.documento }}" download>{{ reporte.descripcion }}</a></td>
+                    <td>{{ reporte.documento.size | filesizeformat }}</td>
             </tbody>
         </table>
         

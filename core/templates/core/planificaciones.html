@@ -68,7 +68,18 @@
 
     {% for archivo in archivos %}
     <div id="calendar">
-       <a href="/media/{{ archivo.documento }}" download>{{ archivo.documento }}</a> 
+        <table>
+            <tbody>
+                <tr>
+                    <td>Descripción del Archivo</td>
+                    <td>Peso</td>
+                </tr>
+                <tr>
+                    <td><a href="/media/{{ archivo.documento }}" download>{{ archivo.descripcion }}</a></td>
+                    <td>{{ archivo.documento.size | filesizeformat }}</td>
+                </tr>
+            </tbody>
+        </table> 
     </div>
     {% endfor %}
 

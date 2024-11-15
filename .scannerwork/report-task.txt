@@ -1,6 +1,6 @@
-projectKey=PConnect
+projectKey=PCF
 serverUrl=http://localhost:9000
 serverVersion=10.7.0.96327
-dashboardUrl=http://localhost:9000/dashboard?id=PConnect
-ceTaskId=23980050-0afb-4980-8b94-96e347c5b51f
-ceTaskUrl=http://localhost:9000/api/ce/task?id=23980050-0afb-4980-8b94-96e347c5b51f
+dashboardUrl=http://localhost:9000/dashboard?id=PCF
+ceTaskId=18289f9e-69b7-4d1a-aba2-46f32023f896
+ceTaskUrl=http://localhost:9000/api/ce/task?id=18289f9e-69b7-4d1a-aba2-46f32023f896

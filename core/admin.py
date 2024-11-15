@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import User, Estudiante, Curso, Asistencia, Planificacion, PlanificacionApoderado
+from .models import User, Estudiante, Curso, Asistencia, Planificacion, PlanificacionApoderado, Notas, Reportes, ReportesApoderado
 
 # Register your models here.
 
@@ -36,8 +36,17 @@ class PlanificacionAdmin(admin.ModelAdmin):
 class PlanificacionApoderadoAdmin(admin.ModelAdmin):
     list_display = ("descripcion", "documento", "subido_a")
 
+class ReportesAdmin(admin.ModelAdmin):
+    list_display = ("descripcion", "documento", "subido_a")
+
+class ReportesApoderadoAdmin(admin.ModelAdmin):
+    list_display = ("descripcion", "documento", "subido_a")
+
 admin.site.register(User, UserAdmin)
 admin.site.register(Curso, CursoAdmin)
 admin.site.register(Estudiante, EstudianteAdmin)
 admin.site.register(Planificacion, PlanificacionAdmin)
 admin.site.register(PlanificacionApoderado, PlanificacionApoderadoAdmin)
+admin.site.register(Reportes, ReportesAdmin)
+admin.site.register(ReportesApoderado, ReportesApoderadoAdmin)
+admin.site.register(Notas)

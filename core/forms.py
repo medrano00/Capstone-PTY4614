@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from .models import User, Planificacion, Asistencia, Estudiante, PlanificacionApoderado
+from .models import User, Planificacion, Asistencia, Estudiante, PlanificacionApoderado, Notas, Reportes, ReportesApoderado
 
 class LoginForm(forms.Form):
     username = forms.CharField(widget= forms.TextInput(attrs={"class": "form-control", "placeholder": "Introduce tu Nombre de Usuario"}), label="Nombre de Usuario")
@@ -31,6 +31,16 @@ class PlanificacionApoderadoForm(forms.ModelForm):
         model = PlanificacionApoderado
         fields = ["descripcion", "documento", ]
 
+class ReportesForm(forms.ModelForm):
+    class Meta:
+        model = Reportes
+        fields = ["descripcion", "documento", ]
+
+class ReportesApoderadoForm(forms.ModelForm):
+    class Meta:
+        model = ReportesApoderado
+        fields = ["descripcion", "documento", ]
+
 class AsistenciaForm(forms.ModelForm):
     class Meta:
         model = Asistencia
@@ -58,3 +68,13 @@ class AsistenciaForm(forms.ModelForm):
                 "en esta fecha en el mismo curso."
             )
         return cleaned_data
+
+
+class NotasForm(forms.ModelForm):
+    Calif_Parcial_1 = forms.CharField(label='CALIFICACIONES PARCIAL 1', max_length=3)
+    Calif_Parcial_2 = forms.CharField(label='CALIFICACIONES PARCIAL 2', max_length=3)
+    Calif_Parcial_3 = forms.CharField(label='CALIFICACIONES PARCIAL 3', max_length=3)
+    class Meta:  
+        model = Notas  
+        #fields = "__all__"  
+        fields ="Calif_Parcial_1","Calif_Parcial_2","Calif_Parcial_3"

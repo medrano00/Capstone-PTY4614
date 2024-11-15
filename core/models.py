@@ -2,6 +2,7 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import AbstractUser
 
+# Modelos Base de la Aplicación
 class User(AbstractUser):
     rut = models.CharField('Rut', max_length=12, default='11.111.111-1')
     nombre = models.CharField('Nombre', max_length=50, default='')
@@ -23,14 +24,15 @@ class Apoderado(models.Model):
     def __str__(self):
         return self.user.nombre
     
+# Modelos - Portal de Parvularia
 class Planificacion(models.Model):
     descripcion = models.CharField(max_length=255, blank=True)
     documento = models.FileField(upload_to='planificaciones/', blank=True, null=True)
     subido_a = models.DateTimeField(default=timezone.now)
 
-class PlanificacionApoderado(models.Model):
+class Reportes(models.Model):
     descripcion = models.CharField(max_length=255, blank=True)
-    documento = models.FileField(upload_to='actividades/', blank=True, null=True)
+    documento = models.FileField(upload_to='reportes/', blank=True, null=True)
     subido_a = models.DateTimeField(default=timezone.now)
 
 class Base(models.Model):
@@ -39,7 +41,6 @@ class Base(models.Model):
 
     class Meta:
         abstract = True
-
 
 class Curso(Base):
     codigo_curso = models.CharField(max_length=20, unique=True)
@@ -50,7 +51,6 @@ class Curso(Base):
 
     def __str__(self):
         return self.nombre_curso
-
 
 class Estudiante(Base):
     id_estudiante = models.CharField(max_length=20, unique=True)
@@ -63,22 +63,35 @@ class Estudiante(Base):
     class Meta:
         ordering = ["created"]
 
-
 class Asistencia(Base):
-
     ESTADO_CHOICES = [("P", "Presente"), ("A", "Ausente")]
-
-    estudiante = models.ForeignKey(
-        Estudiante, on_delete=models.CASCADE, related_name="asistencias"
-    )
+    estudiante = models.ForeignKey(Estudiante, on_delete=models.CASCADE, related_name="asistencias")
     fecha = models.DateField()
     estado_asistencia = models.CharField(max_length=1, choices=ESTADO_CHOICES)
 
     def __str__(self):
-        return (
-            f"{self.estudiante.nombre} - {self.created} - "
-            f"{self.get_estado_asistencia_display()}"
-        )
-
+        return (f"{self.estudiante.nombre} - {self.created} - "f"{self.get_estado_asistencia_display()}")
+    
     class Meta:
         ordering = ["fecha"]
+
+class Notas(models.Model):
+    Estudiante_ID    = models.ForeignKey(Estudiante, on_delete=models.CASCADE)
+    Curso_ID      = models.ForeignKey(Curso, on_delete=models.CASCADE)
+    Periodo_ID      = models.CharField(max_length=10,default='2020-2021')
+    Semestre        = models.CharField(max_length=3)  
+    Calif_Parcial_1 = models.CharField(max_length=3)  
+    Calif_Parcial_2 = models.CharField(max_length=3) 
+    Calif_Parcial_3 = models.CharField(max_length=3) 
+    class Meta:  
+        db_table = "notas"  
+
+class PlanificacionApoderado(models.Model):
+    descripcion = models.CharField(max_length=255, blank=True)
+    documento = models.FileField(upload_to='actividades/', blank=True, null=True)
+    subido_a = models.DateTimeField(default=timezone.now)
+
+class ReportesApoderado(models.Model):
+    descripcion = models.CharField(max_length=255, blank=True)
+    documento = models.FileField(upload_to='reportesApoderado/', blank=True, null=True)
+    subido_a = models.DateTimeField(default=timezone.now)
