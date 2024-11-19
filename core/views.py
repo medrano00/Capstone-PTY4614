@@ -1,6 +1,6 @@
 from typing import Any
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import SignUpForm, LoginForm, AsistenciaForm, PlanificacionForm, PlanificacionApoderadoForm, ReportesForm, ReportesApoderadoForm
+from .forms import SignUpForm, LoginForm, AsistenciaForm, PlanificacionForm, PlanificacionApoderadoForm, ReportesForm, ReportesApoderadoForm, NotasForm
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
 from .models import *
@@ -176,6 +176,45 @@ def planificaciones(request):
     else:
         return render(request, 'core/403.html', status=403)
 
+def portalNotas(request):
+    if request.user.is_parvularia:
+        notas = Notas.objects.all().order_by('-id')
+        return render(request, 'core/portalNotas.html', {'notas': notas})
+    else:
+        return render(request, 'core/403.html', status=403)
+    
+def crearNota(request):
+    if request.method == 'POST':
+        form = NotasForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('core:portalNotas')
+    else:
+        form = NotasForm()
+
+    if request.user.is_parvularia:
+        return render(request, 'core/crearNota.html', {'form': form})
+    else:
+        return render(request, 'core/403.html', status=403)
+
+def editarNota(request, id):
+    nota = get_object_or_404(Notas, id=id)
+    if request.method == 'POST':
+        form = NotasForm(request.POST, instance=nota)
+        if form.is_valid():
+            form.save()
+            return redirect('core:portalNotas')
+    else:
+        form = NotasForm(instance=nota)
+    return render(request, 'core/editarNota.html', {'form': form})
+
+def eliminarNota(request, id):
+    nota = get_object_or_404(Notas, id=id)
+    if request.method == 'POST':
+        nota.delete()
+        return redirect('core:portalNotas')
+    return render(request, 'core/eliminarNota.html', {'nota': nota})
+    
 # Vistas - Portal de Apoderado
 
 def apoderado(request):

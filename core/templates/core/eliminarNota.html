@@ -1,0 +1,47 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planificaciones</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="{% static 'img/favicon2.png' %}" type="image/x-icon" sizes="512x512">
+
+    <!-- Estilos personalizados -->
+    <link rel="stylesheet" href="{% static 'css/portalNotas.css' %}">
+
+    <!-- FullCalendar CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.11.3/main.min.css">
+
+</head>
+
+<body>
+
+<div class="eliminar">
+    <h1>Confirmación de Eliminación</h1>
+
+    <p>¿Está seguro que desea eliminar la siguiente calificación?</p>
+    <p><strong>{{ nota.Estudiante_ID.nombre }} - {{ nota.Curso_ID.nombre_curso }}</strong></p>
+    
+    <form action="{% url 'core:eliminarNota' nota.id %}" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="confirmar" value="si">
+        <button type="submit">Eliminar</button>
+    </form>
+    
+    <a href="{% url 'core:portalNotas' %}">Cancelar</a>
+        <!-- Footer -->
+        <p class="mt-5 mb-3 text-muted">&copy; 2024 ParvuloConnect</p>
+</div>
+
+
+
+
+</body>
+
+</html>
+
+

@@ -19,6 +19,10 @@ urlpatterns = [
     path('parvularia/', parvularia, name='parvularia'),
     path('parvularia/portalAsistencia/', portalAsistencia.as_view(), name='portalAsistencia'),
     path('parvularia/portalAsistencia/<str:codigo_curso>/estudiantes/', CursoDetailView.as_view(), name='curso'),
+    path('parvularia/portalNotas/', portalNotas, name='portalNotas'),
+    path('parvularia/portalNotas/agregar/', crearNota, name='crearNota'),
+    path('parvularia/portalNotas/editar/<int:id>/', editarNota, name='editarNota'),
+    path('parvularia/portalNotas/eliminar/<int:id>/', eliminarNota, name='eliminarNota'),
     path('parvularia/planificaciones/', planificaciones, name='planificaciones'),
     path('parvularia/reportes', reportes, name='reportes'),
     

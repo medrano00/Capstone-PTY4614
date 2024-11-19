@@ -69,12 +69,16 @@ class AsistenciaForm(forms.ModelForm):
             )
         return cleaned_data
 
-
 class NotasForm(forms.ModelForm):
-    Calif_Parcial_1 = forms.CharField(label='CALIFICACIONES PARCIAL 1', max_length=3)
-    Calif_Parcial_2 = forms.CharField(label='CALIFICACIONES PARCIAL 2', max_length=3)
-    Calif_Parcial_3 = forms.CharField(label='CALIFICACIONES PARCIAL 3', max_length=3)
-    class Meta:  
-        model = Notas  
-        #fields = "__all__"  
-        fields ="Calif_Parcial_1","Calif_Parcial_2","Calif_Parcial_3"
+    class Meta:
+        model = Notas
+        fields = ['Estudiante_ID', 'Curso_ID', 'Periodo_ID', 'Semestre', 'Nota', 'Nivel', 'Sesion']
+        widgets = {
+            'Estudiante_ID': forms.Select(attrs={'class': 'form-control'}),
+            'Curso_ID': forms.Select(attrs={'class': 'form-control'}),
+            'Periodo_ID': forms.TextInput(attrs={'class': 'form-control'}),
+            'Semestre': forms.TextInput(attrs={'class': 'form-control'}),
+            'Nota': forms.Select(attrs={'class': 'form-control'}),
+            'Nivel': forms.Select(attrs={'class': 'form-control'}),
+            'Sesion': forms.Select(attrs={'class': 'form-control'}),
+        }
