@@ -11,6 +11,7 @@ from django.core.files.storage import FileSystemStorage
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 # Create your views here.
 
@@ -71,26 +72,40 @@ def custom_500(request):
 # Vistas - Portal de Parvularia 
 
 def parvularia(request):
-    if request.user.is_parvularia:
-        return render(request, 'core/parvularia.html')
+    if request.user.is_authenticated:
+        if request.user.is_parvularia:
+            return render(request, 'core/parvularia.html')
+        else:
+            return render(request, 'core/403.html', status=403)
     else:
         return render(request, 'core/403.html', status=403)
         
 
-class portalAsistencia(ListView):
+class portalAsistencia(LoginRequiredMixin, UserPassesTestMixin, ListView):
     model = Curso
     template_name = 'core/portalAsistencia.html'
+
+    def test_func(self):
+        return self.request.user.is_parvularia
+
+    def handle_no_permission(self):
+        return render(self.request, 'core/403.html', status=403)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['object_list'] = self.object_list.order_by('-created')
         return context
 
-
-class CursoDetailView(DetailView):
+class CursoDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
     model = Curso
     template_name = "core/portalAsistenciaDetail.html"
     context_object_name = "curso"
+
+    def test_func(self):
+        return self.request.user.is_parvularia
+
+    def handle_no_permission(self):
+        return render(self.request, 'core/403.html', status=403)
 
     def get_object(self):
         codigo_curso = self.kwargs["codigo_curso"]
@@ -115,6 +130,7 @@ class CursoDetailView(DetailView):
 
             paginator = Paginator(asistencias, 10)
             page = self.request.GET.get("page")
+
             try:
                 asistencias_paginadas = paginator.page(page)
             except PageNotAnInteger:
@@ -162,110 +178,146 @@ class CursoDetailView(DetailView):
 
 
 def planificaciones(request):
-    if request.method == 'POST':
-        form = PlanificacionForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            return redirect('core:planificaciones')
-    else:
-        form = PlanificacionForm()
-
-    if request.user.is_parvularia:
-        archivos = PlanificacionApoderado.objects.all()
-        return render(request, 'core/planificaciones.html', {'form': form, 'archivos': archivos})
+    if request.user.is_authenticated:
+        if request.user.is_parvularia:
+            if request.method == 'POST':
+                form = PlanificacionForm(request.POST, request.FILES)
+                if form.is_valid():
+                    form.save()
+                    return redirect('core:planificaciones')
+            else:
+                form = PlanificacionForm()
+            
+            archivos = PlanificacionApoderado.objects.all()
+            return render(request, 'core/planificaciones.html', {'form': form, 'archivos': archivos})
+        else:
+            return render(request, 'core/403.html', status=403)
     else:
         return render(request, 'core/403.html', status=403)
 
 def portalNotas(request):
-    if request.user.is_parvularia:
-        notas = Notas.objects.all().order_by('-id')
-        return render(request, 'core/portalNotas.html', {'notas': notas})
+    if request.user.is_authenticated:
+        if request.user.is_parvularia:
+            notas = Notas.objects.all().order_by('-id')
+            return render(request, 'core/portalNotas.html', {'notas': notas})
+        else:
+            return render(request, 'core/403.html', status=403)
+    else:
+        return render(request, 'core/403.html', status=403)
+
+    
+def crearNota(request):
+    if request.user.is_authenticated:
+        if request.user.is_parvularia:
+            if request.method == 'POST':
+                form = NotasForm(request.POST)
+                if form.is_valid():
+                    form.save()
+                    return redirect('core:portalNotas')
+            else:
+                form = NotasForm()
+            
+            return render(request, 'core/crearNota.html', {'form': form})
+        else:
+            return render(request, 'core/403.html', status=403)
+    else:
+        return render(request, 'core/403.html', status=403)
+
+
+def editarNota(request, id):
+    if request.user.is_authenticated:
+        if request.user.is_parvularia:
+            nota = get_object_or_404(Notas, id=id)
+            if request.method == 'POST':
+                form = NotasForm(request.POST, instance=nota)
+                if form.is_valid():
+                    form.save()
+                    return redirect('core:portalNotas')
+            else:
+                form = NotasForm(instance=nota)
+            
+            return render(request, 'core/editarNota.html', {'form': form})
+        else:
+            return render(request, 'core/403.html', status=403)
+    else:
+        return render(request, 'core/403.html', status=403)
+
+def eliminarNota(request, id):
+    if request.user.is_authenticated:
+        if request.user.is_parvularia:
+            nota = get_object_or_404(Notas, id=id)
+            if request.method == 'POST':
+                nota.delete()
+                return redirect('core:portalNotas')
+            return render(request, 'core/eliminarNota.html', {'nota': nota})
+        else:
+            return render(request, 'core/403.html', status=403)
     else:
         return render(request, 'core/403.html', status=403)
     
-def crearNota(request):
-    if request.method == 'POST':
-        form = NotasForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('core:portalNotas')
-    else:
-        form = NotasForm()
-
-    if request.user.is_parvularia:
-        return render(request, 'core/crearNota.html', {'form': form})
+def reportes(request):
+    if request.user.is_authenticated:
+        if request.user.is_parvularia:
+            if request.method == 'POST':
+                form = ReportesForm(request.POST, request.FILES)
+                if form.is_valid():
+                    form.save()
+                    return redirect('core:reportes')
+            else:
+                form = ReportesForm()
+            
+            reportes = ReportesApoderado.objects.all()
+            return render(request, 'core/reportes.html', {'form': form, 'reportes': reportes})
+        else:
+            return render(request, 'core/403.html', status=403)
     else:
         return render(request, 'core/403.html', status=403)
-
-def editarNota(request, id):
-    nota = get_object_or_404(Notas, id=id)
-    if request.method == 'POST':
-        form = NotasForm(request.POST, instance=nota)
-        if form.is_valid():
-            form.save()
-            return redirect('core:portalNotas')
-    else:
-        form = NotasForm(instance=nota)
-    return render(request, 'core/editarNota.html', {'form': form})
-
-def eliminarNota(request, id):
-    nota = get_object_or_404(Notas, id=id)
-    if request.method == 'POST':
-        nota.delete()
-        return redirect('core:portalNotas')
-    return render(request, 'core/eliminarNota.html', {'nota': nota})
     
 # Vistas - Portal de Apoderado
 
 def apoderado(request):
-    if request.user.is_apoderado:
-        return render(request, 'core/apoderado.html')
-    else:
-        return render(request, 'core/403.html', status=403)
-
-def reportes(request):
-    if request.method == 'POST':
-        form = ReportesForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            return redirect('core:reportes')
-    else:
-        form = ReportesForm()
-
-    if request.user.is_parvularia:
-        reportes = ReportesApoderado.objects.all()
-        return render(request, 'core/reportes.html', {'form': form, 'reportes': reportes})
+    if request.user.is_authenticated:
+        if request.user.is_apoderado:
+            return render(request, 'core/apoderado.html')
+        else:
+            return render(request, 'core/403.html', status=403)
     else:
         return render(request, 'core/403.html', status=403)
 
 
 def planificacionesApoderado(request):
-    if request.method == 'POST':
-        form = PlanificacionApoderadoForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            return redirect('core:planificacionesApoderado')
-    else:
-        form = PlanificacionApoderadoForm()
-
-    if request.user.is_apoderado:
-        archivos = Planificacion.objects.all()
-        return render(request, 'core/planificacionesApoderado.html', {'form': form, 'archivos': archivos})
+    if request.user.is_authenticated:
+        if request.user.is_apoderado:
+            if request.method == 'POST':
+                form = PlanificacionApoderadoForm(request.POST, request.FILES)
+                if form.is_valid():
+                    form.save()
+                    return redirect('core:planificacionesApoderado')
+            else:
+                form = PlanificacionApoderadoForm()
+            
+            archivos = Planificacion.objects.all()
+            return render(request, 'core/planificacionesApoderado.html', {'form': form, 'archivos': archivos})
+        else:
+            return render(request, 'core/403.html', status=403)
     else:
         return render(request, 'core/403.html', status=403)
 
 
 def reportesApoderado(request):
-    if request.method == 'POST':
-        form = ReportesApoderadoForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            return redirect('core:reportesApoderado')
-    else:
-        form = ReportesApoderadoForm()
-
-    if request.user.is_apoderado:
-        reportes = Reportes.objects.all()
-        return render(request, 'core/reportesApoderado.html', {'form': form, 'reportes': reportes})
+    if request.user.is_authenticated:
+        if request.user.is_apoderado:
+            if request.method == 'POST':
+                form = ReportesApoderadoForm(request.POST, request.FILES)
+                if form.is_valid():
+                    form.save()
+                    return redirect('core:reportesApoderado')
+            else:
+                form = ReportesApoderadoForm()
+            
+            reportes = Reportes.objects.all()
+            return render(request, 'core/reportesApoderado.html', {'form': form, 'reportes': reportes})
+        else:
+            return render(request, 'core/403.html', status=403)
     else:
         return render(request, 'core/403.html', status=403)
