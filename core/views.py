@@ -321,3 +321,54 @@ def reportesApoderado(request):
             return render(request, 'core/403.html', status=403)
     else:
         return render(request, 'core/403.html', status=403)
+    
+def portalNino(request):
+    if request.user.is_authenticated and request.user.is_apoderado:
+        apoderado = get_object_or_404(Apoderado, user=request.user)
+        estudiantes = Estudiante.objects.filter(apoderado=apoderado)
+        
+        if not estudiantes.exists():
+            messages.warning(request, "No hay estudiantes asociados a este apoderado.")
+        
+        contexto = {
+            'apoderado': apoderado,
+            'estudiantes': estudiantes
+        }
+        
+        return render(request, 'core/portalNino.html', contexto)
+    else:
+        return render(request, 'core/403.html', status=403)
+
+def resumenNino(request, estudiante_id):
+    if request.user.is_authenticated and request.user.is_apoderado:
+        apoderado = get_object_or_404(Apoderado, user=request.user)
+        try:
+            estudiante = Estudiante.objects.get(apoderado=apoderado, pk=estudiante_id)
+        except Estudiante.DoesNotExist:
+            messages.error(request, "Estudiante no encontrado.")
+            return redirect('core:portalNino')
+        
+        totalAsistencias = estudiante.asistencias.count()
+        asistenciasPresentes = estudiante.asistencias.filter(estado_asistencia="P").count()
+        faltas = totalAsistencias - asistenciasPresentes
+
+        notas = estudiante.notas.all()
+
+        totalNotas = notas.count()
+        logrados = notas.filter(nota="L").count()
+        noLogrados = totalNotas - logrados
+
+        context = {
+            "apoderado": apoderado,
+            "estudiante": estudiante,
+            "totalAsistencias": totalAsistencias,
+            "asistenciasPresentes": asistenciasPresentes,
+            "faltas": faltas,
+            "totalNotas": totalNotas,
+            "logrados": logrados,
+            "noLogrados": noLogrados
+        }
+
+        return render(request, 'core/resumenNino.html', context)
+    else:
+        return render(request, 'core/403.html', status=403)

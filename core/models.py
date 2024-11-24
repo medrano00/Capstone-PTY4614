@@ -31,7 +31,7 @@ class User(AbstractUser):
                 self.is_parvularia = False
         except ValidationError as e:
             print(f"Error al validar el correo: {e}")
-            
+
         super().save(*args, **kwargs)
 
 
@@ -73,6 +73,7 @@ class Estudiante(Base):
     id_estudiante = models.CharField(max_length=20, unique=True)
     nombre = models.CharField(max_length=100)
     curso = models.ForeignKey(Curso, on_delete=models.CASCADE, related_name="estudiantes")
+    apoderado = models.ForeignKey(Apoderado, on_delete=models.SET_NULL, null=True, related_name="estudiantes")
 
     def __str__(self):
         return self.nombre
