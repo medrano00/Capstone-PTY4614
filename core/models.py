@@ -1,6 +1,8 @@
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import AbstractUser
+from django.core.validators import EmailValidator
+from django.core.exceptions import ValidationError
 
 # Modelos Base de la Aplicación
 class User(AbstractUser):
@@ -9,7 +11,7 @@ class User(AbstractUser):
     apellido = models.CharField('Apellido', max_length=50, default='')
     edad = models.PositiveIntegerField('Edad', default=1)
     fecha_nacimiento = models.DateField('Fecha de nacimiento', default='1950-01-01')
-    telefono = models.CharField('Telefono', max_length=9, default='')
+    telefono = models.CharField('Telefono', max_length=12, default='')
     email = models.EmailField('Email', max_length=50, default='')
     direccion = models.CharField('Direccion', max_length=50, default='')
     is_apoderado = models.BooleanField('Es Apoderado', default=True)
@@ -17,6 +19,21 @@ class User(AbstractUser):
 
     def __str__(self):
         return self.nombre
+    
+    def save(self, *args, **kwargs):
+        if not self.is_apoderado:
+            self.is_apoderado = True
+        try:
+            EmailValidator()(self.email)
+            if self.email.endswith('@parvularia.parvuloconnect.cl'):
+                self.is_parvularia = True
+            else:
+                self.is_parvularia = False
+        except ValidationError as e:
+            print(f"Error al validar el correo: {e}")
+            
+        super().save(*args, **kwargs)
+
 
 class Apoderado(models.Model):
     userApoderado = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)

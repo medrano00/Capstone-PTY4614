@@ -27,7 +27,7 @@ def register(request):
         if form.is_valid():
             user = form.save()
             msg = 'Usuario creado'
-            return redirect('login')
+            return redirect('core:login')
         else:
             msg = 'Formulario invalido'
     else:

@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-#)@ghofjnt=gt%g0khvgv=0#(!s$_95#9645qoa7y_^150#psw
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['parvuloconnect.pythonanywhere.com']
+ALLOWED_HOSTS = ['parvuloconnect.pythonanywhere.com', 'localhost']
 
 
 # Application definition
