@@ -1,6 +1,6 @@
-projectKey=PCF
+projectKey=PC14
 serverUrl=http://localhost:9000
 serverVersion=10.7.0.96327
-dashboardUrl=http://localhost:9000/dashboard?id=PCF
-ceTaskId=18289f9e-69b7-4d1a-aba2-46f32023f896
-ceTaskUrl=http://localhost:9000/api/ce/task?id=18289f9e-69b7-4d1a-aba2-46f32023f896
+dashboardUrl=http://localhost:9000/dashboard?id=PC14
+ceTaskId=2f05b609-5142-4ba9-9d05-dfb6405b20bc
+ceTaskUrl=http://localhost:9000/api/ce/task?id=2f05b609-5142-4ba9-9d05-dfb6405b20bc
