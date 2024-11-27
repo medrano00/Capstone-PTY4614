@@ -50,3 +50,6 @@ admin.site.register(PlanificacionApoderado, PlanificacionApoderadoAdmin)
 admin.site.register(Reportes, ReportesAdmin)
 admin.site.register(ReportesApoderado, ReportesApoderadoAdmin)
 admin.site.register(Notas)
+admin.site.site_header = 'Portal de Administración - Jardín Infantil Los Espinos'
+admin.site.index_title = 'Inicio'
+admin.site.site_title = 'Portal de Administración - Jardín Infantil Los Espinos'

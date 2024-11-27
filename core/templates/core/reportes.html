@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Planificaciones</title>
+    <title>Reportes de Parvularia</title>
 
     <!-- Favicon -->
     <link rel="icon" href="{% static 'img/favicon2.png' %}" type="image/x-icon" sizes="512x512">
@@ -13,6 +13,7 @@
     <!-- Estilos personalizados -->
     <link rel="stylesheet" href="{% static 'css/planificaciones.css' %}">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/reportes.css' %}">
 
     <!-- FullCalendar CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.11.3/main.min.css">
@@ -25,7 +26,7 @@
         }
 
         h1, h2 {
-            color: white;
+            color: black;
             text-align: center;
             padding: 10px;
         }
@@ -61,38 +62,49 @@
 
 <body>
 
-    
-    <!-- Título de la página -->
-    <h1>Reportes del Año 2024</h1>
-    <a href="{% url 'core:parvularia' %}" class="btn btn-primary">Retornar a la página principal</a>
 
-    {% for reporte in reportes %}
-    <div id="calendar">
+    <!-- Título de la página -->
+    <h1>Reportes del Año {% now 'Y' %}</h1>
+    <button class="btn btn-primary" onclick="window.location.href='{% url 'core:parvularia' %}'" style="text-align: center;">Volver al Portal de Parvularia</button>
+
+     <div id="calendar">
         <table>
             <tbody>
                 <tr>
-                    <td>Descripción del Archivo</td>
-                    <td>Peso</td>
+                    <td>Nombre y Peso del Archivo</td>
+                    <td>Descripción del Reporte</td>
                 </tr>
+                {% for reporte in reportes %}
                 <tr>
-                    <td><a href="/media/{{ reporte.documento }}" download>{{ reporte.descripcion }}</a></td>
-                    <td>{{ reporte.documento.size | filesizeformat }}</td>
+                    <td><a href="/media/{{ reporte.documento }}" download>{{ reporte.documento }} - {{ reporte.documento.size | filesizeformat }}</a></td>
+                    <td>{{ reporte.descripcion }}</td>
                 </tr>
+                {% endfor %}
             </tbody>
-        </table> 
-    </div>
-    {% endfor %}
+        </table>
+     </div>
 
     <!-- Formulario para subir archivos -->
     <form method="post" enctype="multipart/form-data">
     	{% csrf_token %}
     	{{ form.as_p }}
     	<button type="submit">Subir</button>
-      </form>    
+      </form>
 
     <!-- Footer -->
-    <p class="mt-5 mb-3 text-muted">&copy; 2024 ParvuloConnect</p>
+    <p class="mt-5 mb-3 text-muted">&copy; {% now 'Y' %} ParvuloConnect</p>
 
+<script>
+  document.querySelector('form').addEventListener('submit', function(event) {
+    var descripcion = document.querySelector('[name="descripcion"]').value;
+    var documento = document.querySelector('[name="documento"]').files.length;
+
+    if (!descripcion || documento === 0) {
+      event.preventDefault();  // Previene el envío del formulario
+      alert('La descripción y el archivo son obligatorios.');
+    }
+  });
+</script>
 
 </body>
 

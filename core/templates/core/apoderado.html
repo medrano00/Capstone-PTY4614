@@ -5,87 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="{% static 'img/favicon2.png' %}" type="image/x-icon" sizes="512x512">
-    <title>PárvuloConnect</title>
-    <style>
-        body {
-        background-image: url(../../../static/img/familia.jpeg);
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        height: 100vh;
-        }
-
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            flex-direction: column;
-        }
-
-        .title {
-            background-color: #6CA36C;
-            padding: 20px;
-            border-radius: 10px;
-            color: #000;
-            font-size: 40px;
-            font-weight: bold;
-            position: fixed;
-            top: 0px; /* ajusta la distancia desde la parte superior */
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        .buttons {
-            margin-top: 100px; /* Espacio debajo del título */
-            display: grid;
-            grid-template-columns: 1fr;
-            grid-gap: 90px;
-            justify-items: center;
-        }
-
-        .button {
-            background-color: #6CA36C;
-            padding: 20px 40px;
-            border-radius: 20px;
-            text-decoration: none;
-            color: black;
-            font-size: 20px;
-            display: inline-block;
-            text-align: center;
-            transition: transform 0.2s;
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-            width: 250px;
-        }
-
-        .button:hover {
-            transform: scale(1.05);
-        }
-
-        .buttons div {
-            display: flex;
-            justify-content: center;
-        }
-    </style>
+    <link rel="stylesheet" href="{% static 'css/apoderado.css' %}">
+    <title>Portal de Apoderado</title>
 </head>
 <body>
     <div class="title" style="color: #ffffff;">PárvuloConnect</div>
-    <div>
-        <br>
-        <br>
-        <p style="font-weight: bold; font-size: xx-large; color: #000000;">¡Hola, {{ request.user.nombre }}!</p>
-    </div>
     <div class="buttons">
-        <div ><a style="color:#ffffff;" href="{% url 'core:planificacionesApoderado' %}" class="button">Planificaciones</a></div>
-        <div ><a style="color:#ffffff;" href="{% url 'core:reportesApoderado' %}" class="button">Reportes</a></div>
-        <div ><a style="color:#ffffff;" href="{% url 'core:portalNino' %}" class="button">Portal del Niño</a></div>
-        <div ><a style="color:#ffffff;" href="{% url 'core:logout' %}" class="button">Cerrar sesión</a></div>
+        <div ><a style="color:#ffffff;" href="{% url 'core:planificacionesApoderado' %}" class="button" style="color: #ffffff;">Planificaciones</a></div>
+        <div ><a style="color:#ffffff;" href="{% url 'core:reportesApoderado' %}" class="button" style="color: #ffffff;">Reportes</a></div>
+        <div ><a style="color:#ffffff;" href="{% url 'core:logout' %}" class="button" style="color: #ffffff;">Cerrar sesión</a></div>
     </div>
 </body>
 </html>

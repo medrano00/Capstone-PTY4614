@@ -25,16 +25,16 @@
 
     <p>¿Está seguro que desea eliminar la siguiente calificación?</p>
     <p><strong>{{ nota.Estudiante_ID.nombre }} - {{ nota.Curso_ID.nombre_curso }}</strong></p>
-    
+
     <form action="{% url 'core:eliminarNota' nota.id %}" method="post">
         {% csrf_token %}
         <input type="hidden" name="confirmar" value="si">
         <button type="submit">Eliminar</button>
     </form>
-    
-    <a href="{% url 'core:portalNotas' %}">Cancelar</a>
+
+    <button class="btn btn-primary" onclick="window.location.href='{% url 'core:portalNotas' %}'" style="text-align: center;">Cancelar</button>
         <!-- Footer -->
-        <p class="mt-5 mb-3 text-muted">&copy; 2024 ParvuloConnect</p>
+        <p class="mt-5 mb-3 text-muted">&copy; {% now 'Y' %} ParvuloConnect</p>
 </div>
 
 

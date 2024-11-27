@@ -63,7 +63,7 @@
   <body>
     <div class="container mt-4">
       <h1 style="align-items: center; display: flex;">Portal de Asistencia</h1>
-      <a href="{% url 'core:parvularia' %}" class="btn btn-primary">Retornar a la página principal</a>
+      <button class="btn btn-primary" onclick="window.location.href='{% url 'core:parvularia' %}'" style="text-align: center;">Retornar al Portal de Parvularia</button>
       <br />
     </div>
 
@@ -75,12 +75,12 @@
             <div style="text-align: center;">
               <br>
                 <h5>{{ curso.nombre_curso }}</h5>
-                <a href="{% url 'core:curso' curso.codigo_curso %}" class="profile-link">ver asistencias</a>
+                <button class="btn btn-primary" onclick="window.location.href='{% url 'core:curso' curso.codigo_curso %}'" style="text-align: center;">Ver Asistencias</button>
             </div>
             {% empty %}
             <p>No hay cursos disponibles.</p>
             {% endfor %}
-          </div>    
+          </div>
       </div>
   </main>
 

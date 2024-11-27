@@ -30,8 +30,7 @@ urlpatterns = [
     path('apoderado/', apoderado, name='apoderado'),
     path('apoderado/planificaciones/', planificacionesApoderado, name='planificacionesApoderado'),
     path('apoderado/reportes/', reportesApoderado, name='reportesApoderado'),
-    path('apoderado/portalNino/', portalNino, name='portalNino'),
-    path('apoderado/resumenNino/<int:id>/', resumenNino, name='resumenNino'),
+        
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 if settings.DEBUG:

@@ -18,7 +18,7 @@
 </head>
 
 <body>
-<a href="{% url 'core:portalNotas' %}">Regresar</a>
+<button class="btn btn-primary" onclick="window.location.href='{% url 'core:portalNotas' %}'" style="text-align: center;">Regresar al Portal de Notas</button>
 
 <h1>Mantenedor de Calificaciones</h1>
 
@@ -29,7 +29,7 @@
 </form>
 
     <!-- Footer -->
-    <p class="mt-5 mb-3 text-muted">&copy; 2024 ParvuloConnect</p>
+    <p class="mt-5 mb-3 text-muted">&copy; {% now 'Y' %} ParvuloConnect</p>
 
 
 </body>

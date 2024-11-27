@@ -12,6 +12,8 @@ from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.decorators import login_required
+from datetime import datetime
 
 # Create your views here.
 
@@ -69,7 +71,7 @@ def custom_500(request):
     return render(request, '500.html', status=500)
 
 
-# Vistas - Portal de Parvularia 
+# Vistas - Portal de Parvularia
 
 def parvularia(request):
     if request.user.is_authenticated:
@@ -79,7 +81,7 @@ def parvularia(request):
             return render(request, 'core/403.html', status=403)
     else:
         return render(request, 'core/403.html', status=403)
-        
+
 
 class portalAsistencia(LoginRequiredMixin, UserPassesTestMixin, ListView):
     model = Curso
@@ -187,9 +189,15 @@ def planificaciones(request):
                     return redirect('core:planificaciones')
             else:
                 form = PlanificacionForm()
-            
+
             archivos = PlanificacionApoderado.objects.all()
-            return render(request, 'core/planificaciones.html', {'form': form, 'archivos': archivos})
+
+            contexto = {
+                'anio': datetime.now().year,
+                'form': form,
+                'archivos': archivos,
+            }
+            return render(request, 'core/planificaciones.html', contexto)
         else:
             return render(request, 'core/403.html', status=403)
     else:
@@ -205,7 +213,7 @@ def portalNotas(request):
     else:
         return render(request, 'core/403.html', status=403)
 
-    
+
 def crearNota(request):
     if request.user.is_authenticated:
         if request.user.is_parvularia:
@@ -216,7 +224,7 @@ def crearNota(request):
                     return redirect('core:portalNotas')
             else:
                 form = NotasForm()
-            
+
             return render(request, 'core/crearNota.html', {'form': form})
         else:
             return render(request, 'core/403.html', status=403)
@@ -235,7 +243,7 @@ def editarNota(request, id):
                     return redirect('core:portalNotas')
             else:
                 form = NotasForm(instance=nota)
-            
+
             return render(request, 'core/editarNota.html', {'form': form})
         else:
             return render(request, 'core/403.html', status=403)
@@ -254,7 +262,7 @@ def eliminarNota(request, id):
             return render(request, 'core/403.html', status=403)
     else:
         return render(request, 'core/403.html', status=403)
-    
+
 def reportes(request):
     if request.user.is_authenticated:
         if request.user.is_parvularia:
@@ -265,14 +273,20 @@ def reportes(request):
                     return redirect('core:reportes')
             else:
                 form = ReportesForm()
-            
+
             reportes = ReportesApoderado.objects.all()
-            return render(request, 'core/reportes.html', {'form': form, 'reportes': reportes})
+
+            contexto = {
+                'anio': datetime.now().year,
+                'form': form,
+                'reportes': reportes,
+            }
+            return render(request, 'core/reportes.html', contexto)
         else:
             return render(request, 'core/403.html', status=403)
     else:
         return render(request, 'core/403.html', status=403)
-    
+
 # Vistas - Portal de Apoderado
 
 def apoderado(request):
@@ -295,9 +309,15 @@ def planificacionesApoderado(request):
                     return redirect('core:planificacionesApoderado')
             else:
                 form = PlanificacionApoderadoForm()
-            
+
             archivos = Planificacion.objects.all()
-            return render(request, 'core/planificacionesApoderado.html', {'form': form, 'archivos': archivos})
+
+            contexto = {
+                'anio': datetime.now().year,
+                'form': form,
+                'archivos': archivos,
+            }
+            return render(request, 'core/planificacionesApoderado.html', contexto)
         else:
             return render(request, 'core/403.html', status=403)
     else:
@@ -314,61 +334,16 @@ def reportesApoderado(request):
                     return redirect('core:reportesApoderado')
             else:
                 form = ReportesApoderadoForm()
-            
+
             reportes = Reportes.objects.all()
-            return render(request, 'core/reportesApoderado.html', {'form': form, 'reportes': reportes})
+
+            contexto = {
+                'anio': datetime.now().year,
+                'form': form,
+                'reportes': reportes,
+            }
+            return render(request, 'core/reportesApoderado.html', contexto)
         else:
             return render(request, 'core/403.html', status=403)
-    else:
-        return render(request, 'core/403.html', status=403)
-    
-def portalNino(request):
-    if request.user.is_authenticated and request.user.is_apoderado:
-        apoderado = get_object_or_404(Apoderado, user=request.user)
-        estudiantes = Estudiante.objects.filter(apoderado=apoderado)
-        
-        if not estudiantes.exists():
-            messages.warning(request, "No hay estudiantes asociados a este apoderado.")
-        
-        contexto = {
-            'apoderado': apoderado,
-            'estudiantes': estudiantes
-        }
-        
-        return render(request, 'core/portalNino.html', contexto)
-    else:
-        return render(request, 'core/403.html', status=403)
-
-def resumenNino(request, estudiante_id):
-    if request.user.is_authenticated and request.user.is_apoderado:
-        apoderado = get_object_or_404(Apoderado, user=request.user)
-        try:
-            estudiante = Estudiante.objects.get(apoderado=apoderado, pk=estudiante_id)
-        except Estudiante.DoesNotExist:
-            messages.error(request, "Estudiante no encontrado.")
-            return redirect('core:portalNino')
-        
-        totalAsistencias = estudiante.asistencias.count()
-        asistenciasPresentes = estudiante.asistencias.filter(estado_asistencia="P").count()
-        faltas = totalAsistencias - asistenciasPresentes
-
-        notas = estudiante.notas.all()
-
-        totalNotas = notas.count()
-        logrados = notas.filter(nota="L").count()
-        noLogrados = totalNotas - logrados
-
-        context = {
-            "apoderado": apoderado,
-            "estudiante": estudiante,
-            "totalAsistencias": totalAsistencias,
-            "asistenciasPresentes": asistenciasPresentes,
-            "faltas": faltas,
-            "totalNotas": totalNotas,
-            "logrados": logrados,
-            "noLogrados": noLogrados
-        }
-
-        return render(request, 'core/resumenNino.html', context)
     else:
         return render(request, 'core/403.html', status=403)

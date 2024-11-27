@@ -11,12 +11,12 @@
     <link rel="icon" href="{% static 'img/favicon2.png' %}" type="image/x-icon" sizes="512x512">
 
     <!-- Estilos personalizados -->
-    
+
     <link rel="stylesheet" href="{% static 'css/portalNotas.css' %}">
 
     <!-- FullCalendar CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.11.3/main.min.css">
-    
+
 </head>
 
 <body>
@@ -28,11 +28,11 @@
         {{ form.as_p }}
         <button type="submit">Guardar Cambios</button>
     </form>
-    <a href="{% url 'core:portalNotas' %}">Volver al Mantenedor</a>
+<button class="btn btn-primary" onclick="window.location.href='{% url 'core:portalNotas' %}'" style="text-align: center;">Volver al Portal de Notas</button>
 
 
     <!-- Footer -->
-    <p class="mt-5 mb-3 text-muted">&copy; 2024 ParvuloConnect</p>
+    <p class="mt-5 mb-3 text-muted">&copy; {% now 'Y' %} ParvuloConnect</p>
 
 
 </body>

@@ -11,7 +11,7 @@
     <link rel="icon" href="{% static 'img/favicon2.png' %}" type="image/x-icon" sizes="512x512">
 
     <!-- Estilos personalizados -->
-    
+
     <link rel="stylesheet" href="{% static 'css/portalNotas.css' %}">
 
     <!-- FullCalendar CSS -->
@@ -19,9 +19,10 @@
 </head>
 
 <body>
-<a href="{% url 'core:parvularia' %}">Regresar</a>
+<button class="btn btn-primary" onclick="window.location.href='{% url 'core:parvularia' %}'" style="text-align: center;">Regresar a la página principal</button>
 <br>
-<a href="{% url 'core:crearNota' %}" class="btn btn-primary" style="text-align: center;">Crear una nota</a>
+<br>
+<button class="btn btn-primary" onclick="window.location.href='{% url 'core:crearNota' %}'" style="text-align: center;">Crear una nota</button>
 
 <h2>Calificaciones Registradas</h2>
 <table class="table table-bordered">
@@ -44,8 +45,8 @@
             <td>{{ nota.get_Nota_display }}</td>
             <td>{{ nota.Sesion }}</td>
             <td>
-                <a href="{% url 'core:editarNota' nota.id %}">Editar</a> |
-                <a href="{% url 'core:eliminarNota' nota.id %}">Eliminar</a>
+                <button class="btn btn-primary" onclick="window.location.href='{% url 'core:editarNota' nota.id %}'" style="text-align: center;">Editar</button> |
+                <button class="btn btn-primary" onclick="window.location.href='{% url 'core:eliminarNota' nota.id %}'" style="text-align: center;">Eliminar</button>
             </td>
         </tr>
         {% endfor %}
@@ -53,7 +54,7 @@
 </table>
 
     <!-- Footer -->
-    <p class="mt-5 mb-3 text-muted">&copy; 2024 ParvuloConnect</p>
+    <p class="mt-5 mb-3 text-muted">&copy; {% now 'Y' %} ParvuloConnect</p>
 
 
 </body>

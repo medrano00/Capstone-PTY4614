@@ -9,19 +9,14 @@
     <title>Portal de Parvularia - PárvuloConnect</title>
 </head>
 <body>
-    <div class="title" style="font-weight: bold; font-size: xx-large; color: #ffffff;">PárvuloConnect</div>
-    <div>
-        <br>
-        <br>
-        <p style="font-weight: bold; font-size: xx-large; color: #ffffff;">¡Hola, {{ request.user.nombre }}!</p>
-    </div>
+    <div class="title" style="color: #ffffff;">PárvuloConnect</div>
     <div class="buttons">
-        <div style="font-weight: bold; font-size: xx-large; color: #ffffff;"><a href="{% url 'core:planificaciones' %}" class="button">Planificaciones</a></div>
-        <div style="font-weight: bold; font-size: xx-large; color: #ffffff;"><a href="{% url 'core:reportes' %}" class="button">Reportes</a></div>
-        <div style="font-weight: bold; font-size: xx-large; color: #ffffff;"><a href="{% url 'core:portalAsistencia' %}" class="button">Portal de Asistencia</a></div>
-        <div style="font-weight: bold; font-size: xx-large; color: #ffffff;"><a href="{% url 'core:portalNotas' %}" class="button">Portal de Notas</a></div>
+        <div style="font-weight: bold; font-size: xx-large; color: #ffffff;"><a href="{% url 'core:planificaciones' %}" class="button" style="color: #ffffff;">Planificaciones</a></div>
+        <div style="font-weight: bold; font-size: xx-large; color: #ffffff;"><a href="{% url 'core:reportes' %}" class="button" style="color: #ffffff;">Reportes</a></div>
+        <div style="font-weight: bold; font-size: xx-large; color: #ffffff;"><a href="{% url 'core:portalAsistencia' %}" class="button" style="color: #ffffff;">Portal de Asistencia</a></div>
+        <div style="font-weight: bold; font-size: xx-large; color: #ffffff;"><a href="{% url 'core:portalNotas' %}" class="button" style="color: #ffffff;">Portal de Notas</a></div>
         <br>
-        <div style="font-weight: bold; font-size: xx-large; color: #ffffff;"><a href="{% url 'core:logout' %}" class="button">Cerrar sesión</a></div>
+        <div style="font-weight: bold; font-size: xx-large; color: #ffffff;"><a href="{% url 'core:logout' %}" class="button" style="color: #ffffff;">Cerrar sesión</a></div>
     </div>
 </body>
 </html>

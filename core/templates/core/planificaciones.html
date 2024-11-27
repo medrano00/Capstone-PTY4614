@@ -61,12 +61,11 @@
 
 <body>
 
-    
+
     <!-- Título de la página -->
     <h1>Planificaciones para el Año 2024</h1>
-    <a href="{% url 'core:parvularia' %}" class="btn btn-primary">Retornar a la página principal</a>
+    <button class="btn btn-primary" onclick="window.location.href='{% url 'core:parvularia' %}'" style="text-align: center;">Regresar al Portal de Parvularia</button>
 
-    {% for archivo in archivos %}
     <div id="calendar">
         <table>
             <tbody>
@@ -74,25 +73,37 @@
                     <td>Descripción del Archivo</td>
                     <td>Peso</td>
                 </tr>
+                {% for archivo in archivos %}
                 <tr>
                     <td><a href="/media/{{ archivo.documento }}" download>{{ archivo.descripcion }}</a></td>
                     <td>{{ archivo.documento.size | filesizeformat }}</td>
                 </tr>
+                {% endfor %}
             </tbody>
-        </table> 
+        </table>
     </div>
-    {% endfor %}
 
     <!-- Formulario para subir archivos -->
     <form method="post" enctype="multipart/form-data">
     	{% csrf_token %}
     	{{ form.as_p }}
     	<button type="submit">Subir</button>
-      </form>    
+      </form>
 
     <!-- Footer -->
-    <p class="mt-5 mb-3 text-muted">&copy; 2024 ParvuloConnect</p>
+    <p class="mt-5 mb-3 text-muted">&copy; {% now 'Y' %} ParvuloConnect</p>
 
+<script>
+  document.querySelector('form').addEventListener('submit', function(event) {
+    var descripcion = document.querySelector('[name="descripcion"]').value;
+    var documento = document.querySelector('[name="documento"]').files.length;
+
+    if (!descripcion || documento === 0) {
+      event.preventDefault();  // Previene el envío del formulario
+      alert('La descripción y el archivo son obligatorios.');
+    }
+  });
+</script>
 
 </body>
 

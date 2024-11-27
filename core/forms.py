@@ -19,7 +19,7 @@ class SignUpForm(UserCreationForm):
     class Meta:
         model = User
         fields = ('username', 'nombre', 'apellido', 'email', 'telefono', 'password1', 'password2', 'is_parvularia', 'is_apoderado')
-    
+
 
 class PlanificacionForm(forms.ModelForm):
     class Meta:
