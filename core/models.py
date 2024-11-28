@@ -14,7 +14,7 @@ class User(AbstractUser):
     telefono = models.CharField('Telefono', max_length=12, default='')
     email = models.EmailField('Email', max_length=50, default='')
     direccion = models.CharField('Direccion', max_length=50, default='')
-    is_apoderado = models.BooleanField('Es Apoderado', default=True)
+    is_apoderado = models.BooleanField('Es Apoderado', default=False)
     is_parvularia = models.BooleanField('Es Parvularia', default=False)
 
     def __str__(self):
@@ -25,14 +25,14 @@ class User(AbstractUser):
         verbose_name_plural = 'Usuarios'
 
     def save(self, *args, **kwargs):
-        if not self.is_apoderado:
-            self.is_apoderado = True
         try:
             EmailValidator()(self.email)
             if self.email.endswith('@parvularia.parvuloconnect.cl'):
                 self.is_parvularia = True
+                self.is_apoderado = False
             else:
                 self.is_parvularia = False
+                self.is_apoderado = True
         except ValidationError as e:
             print(f"Error al validar el correo: {e}")
 
@@ -142,11 +142,6 @@ class PlanificacionApoderado(models.Model):
 class ReportesApoderado(models.Model):
     descripcion = models.CharField(max_length=255)
     documento = models.FileField(upload_to='reportesApoderado/', default='reportesApoderado/')
-    subido_a = models.DateTimeField(default=timezone.now)
-
-class PlanificacionApoderado(models.Model):
-    descripcion = models.CharField(max_length=255)
-    documento = models.FileField(upload_to='actividades/', default='actividades/')
     subido_a = models.DateTimeField(default=timezone.now)
 
     class Meta:
