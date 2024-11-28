@@ -28,6 +28,6 @@ python manage.py runserver --insecure
 
 Después, se tiene que ir a la dirección que se le indica en la propia terminal:
 
-[Link para redirigir a la página](http://localhost:8000/)
+[Link para redirigir a la página](https://parvuloconnect.cl/)
 
 ![Imagen README](/static/img/imageREADME.png)

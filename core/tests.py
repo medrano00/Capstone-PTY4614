@@ -33,11 +33,11 @@ class TestParvuloConnect(LiveServerTestCase):
         super().tearDown()
 
     def test_pc01(self): # Verificar que la página principal funciona correctamente
-        self.selenium.get('http://localhost:8000')
+        self.selenium.get('https://parvuloconnect.cl')
         time.sleep(5)
 
     def test_pc02(self): # Verificar que el registro funciona correctamente
-        self.selenium.get('http://localhost:8000')
+        self.selenium.get('https://parvuloconnect.cl')
         time.sleep(2)
         self.selenium.find_element(By.XPATH, '/html/body/div/header/div/div/a/i').click()
         time.sleep(5)
@@ -75,7 +75,7 @@ class TestParvuloConnect(LiveServerTestCase):
         time.sleep(5)
 
     def test_pc03(self): # Verificar que el login funciona correctamente
-        self.selenium.get('http://localhost:8000')
+        self.selenium.get('https://parvuloconnect.cl')
         time.sleep(2)
         self.selenium.find_element(By.XPATH, '/html/body/div/header/div/div/a/i').click()
         time.sleep(5)
@@ -91,7 +91,7 @@ class TestParvuloConnect(LiveServerTestCase):
         time.sleep(5)
 
     def test_pc04(self): # Verificar que el login de parvularia funciona correctamente
-        self.selenium.get('http://localhost:8000')
+        self.selenium.get('https://parvuloconnect.cl')
         time.sleep(2)
         self.selenium.find_element(By.XPATH, '/html/body/div/header/div/div/a/i').click()
         time.sleep(2)
@@ -111,7 +111,7 @@ class TestParvuloConnect(LiveServerTestCase):
         time.sleep(5)
     
     def test_pc05(self): # Verificar que el login de apoderado funciona correctamente
-        self.selenium.get('http://localhost:8000')
+        self.selenium.get('https://parvuloconnect.cl')
         time.sleep(2)
         self.selenium.find_element(By.XPATH, '/html/body/div/header/div/div/a/i').click()
         time.sleep(2)
@@ -131,7 +131,7 @@ class TestParvuloConnect(LiveServerTestCase):
         time.sleep(5)
 
     def test_pc06(self): # Verificar que el logout funciona correctamente
-        self.selenium.get('http://localhost:8000')
+        self.selenium.get('https://parvuloconnect.cl')
         time.sleep(2)
         self.selenium.find_element(By.XPATH, '/html/body/div/header/div/div/a/i').click()
         time.sleep(2)
@@ -151,7 +151,7 @@ class TestParvuloConnect(LiveServerTestCase):
         time.sleep(5)
 
     def test_pc07(self): # Comprobar que el portal de planificaciones para apoderados funciona correctamente
-        self.selenium.get('http://localhost:8000')
+        self.selenium.get('https://parvuloconnect.cl')
         time.sleep(2)
         self.selenium.find_element(By.XPATH, '/html/body/div/header/div/div/a/i').click()
         time.sleep(2)
@@ -173,7 +173,7 @@ class TestParvuloConnect(LiveServerTestCase):
         time.sleep(5)
 
     def test_pc08(self): # Comprobar que el portal de reportes para apoderados funciona correctamente
-        self.selenium.get('http://localhost:8000')
+        self.selenium.get('https://parvuloconnect.cl')
         time.sleep(2)
         self.selenium.find_element(By.XPATH, '/html/body/div/header/div/div/a/i').click()
         time.sleep(2)
@@ -195,7 +195,7 @@ class TestParvuloConnect(LiveServerTestCase):
         time.sleep(5)
     
     def test_pc09(self): # Comprobar que el portal de planificaciones para parvularia funciona correctamente
-        self.selenium.get('http://localhost:8000')
+        self.selenium.get('https://parvuloconnect.cl')
         time.sleep(2)
         self.selenium.find_element(By.XPATH, '/html/body/div/header/div/div/a/i').click()
         time.sleep(2)
@@ -209,11 +209,15 @@ class TestParvuloConnect(LiveServerTestCase):
         time.sleep(2)
         self.selenium.find_element(By.XPATH, '/html/body/div/div/form/button[1]').click()
         time.sleep(2)
-        self.selenium.find_element(By.XPATH, '/html/body/div[3]/div[1]/a').click()
+        self.selenium.find_element(By.XPATH, '/html/body/div/header/div/div/div/a/i').click()
+        time.sleep(2)
+        self.selenium.find_element(By.XPATH, '/html/body/div/header/div/div/div/div/a[1]').click()
+        time.sleep(2)
+        self.selenium.find_element(By.XPATH, '/html/body/div[2]/div[1]/a').click()
         time.sleep(5)
     
     def test_pc10(self): # Comprobar que el portal de reportes para parvularia funciona correctamente
-        self.selenium.get('http://localhost:8000')
+        self.selenium.get('https://parvuloconnect.cl')
         time.sleep(2)
         self.selenium.find_element(By.XPATH, '/html/body/div/header/div/div/a/i').click()
         time.sleep(2)
@@ -226,12 +230,16 @@ class TestParvuloConnect(LiveServerTestCase):
         self.selenium.find_element(By.XPATH, '/html/body/div/div/form/p[2]/input').send_keys(passwordParvularia)
         time.sleep(2)
         self.selenium.find_element(By.XPATH, '/html/body/div/div/form/button[1]').click()
+        time.sleep(2)
+        self.selenium.find_element(By.XPATH, '/html/body/div/header/div/div/div/a/i').click()
+        time.sleep(2)
+        self.selenium.find_element(By.XPATH, '/html/body/div/header/div/div/div/div/a[1]').click()
         time.sleep(2)
         self.selenium.find_element(By.XPATH, '/html/body/div[3]/div[2]/a').click()
         time.sleep(5)
 
     def test_pc11(self): # Comprobar que el portal de asistencia para parvularia funciona correctamente
-        self.selenium.get('http://localhost:8000')
+        self.selenium.get('https://parvuloconnect.cl')
         time.sleep(2)
         self.selenium.find_element(By.XPATH, '/html/body/div/header/div/div/a/i').click()
         time.sleep(2)
@@ -245,11 +253,15 @@ class TestParvuloConnect(LiveServerTestCase):
         time.sleep(2)
         self.selenium.find_element(By.XPATH, '/html/body/div/div/form/button[1]').click()
         time.sleep(2)
-        self.selenium.find_element(By.XPATH, '/html/body/div[3]/div[3]/a').click()
+        self.selenium.find_element(By.XPATH, '/html/body/div/header/div/div/div/a/i').click()
+        time.sleep(2)
+        self.selenium.find_element(By.XPATH, '/html/body/div/header/div/div/div/div/a[1]').click()
+        time.sleep(2)
+        self.selenium.find_element(By.XPATH, '/html/body/div[2]/div[3]/a').click()
         time.sleep(5)
         
     def test_pc12(self):
-        self.selenium.get('http://localhost:8000')
+        self.selenium.get('https://parvuloconnect.cl')
         time.sleep(2)
         self.selenium.find_element(By.XPATH, '/html/body/div/header/div/div/a/i').click()
         time.sleep(2)
@@ -263,5 +275,9 @@ class TestParvuloConnect(LiveServerTestCase):
         time.sleep(2)
         self.selenium.find_element(By.XPATH, '/html/body/div/div/form/button[1]').click()
         time.sleep(2)
-        self.selenium.find_element(By.XPATH, '/html/body/div[3]/div[4]/a').click()
+        self.selenium.find_element(By.XPATH, '/html/body/div/header/div/div/div/a/i').click()
+        time.sleep(2)
+        self.selenium.find_element(By.XPATH, '/html/body/div/header/div/div/div/div/a[1]').click()
+        time.sleep(2)
+        self.selenium.find_element(By.XPATH, '/html/body/div[2]/div[4]/a').click()
         time.sleep(5)

@@ -120,7 +120,9 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-STATIC_ROOT = BASE_DIR / 'static'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
 
 MEDIA_URL = '/media/'  # URL para acceder a archivos subidos
 MEDIA_ROOT = BASE_DIR / 'media'  # Ruta en el sistema de archivos donde se almacenan los archivos subidos
