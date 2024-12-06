@@ -14,6 +14,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.decorators import login_required
 from datetime import datetime
+from django.http import Http404
 
 # Create your views here.
 
@@ -203,65 +204,164 @@ def planificaciones(request):
     else:
         return render(request, 'core/403.html', status=403)
 
-def portalNotas(request):
-    if request.user.is_authenticated:
-        if request.user.is_parvularia:
-            notas = Notas.objects.all().order_by('-id')
-            return render(request, 'core/portalNotas.html', {'notas': notas})
+class portalNotas(LoginRequiredMixin, UserPassesTestMixin, ListView):
+    model = Curso
+    template_name = 'core/portalNotas.html'
+    
+    def test_func(self):
+        return self.request.user.is_parvularia
+    
+    def handle_no_permission(self):
+        return render(self.request, 'core/403.html', status=403)
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['object_list'] = self.object_list.order_by('-created')
+        return context
+
+class NotasDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
+    model = Curso
+    template_name = "core/portalNotasDetail.html"
+    context_object_name = "curso"
+    
+    def test_func(self):
+        return self.request.user.is_parvularia
+    
+    def handle_no_permission(self):
+        return render(self.request, 'core/403.html', status=403)
+    
+    def get_object(self):
+        codigo_curso = self.kwargs["codigo_curso"]
+        return get_object_or_404(Curso, codigo_curso=codigo_curso)
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        
+        search_query = self.request.GET.get("q", "")
+        notas = Notas.objects.filter(Curso_ID=self.object)
+        
+        if search_query:
+            notas = notas.filter(Estudiante_ID__nombre__icontains=search_query)
+        
+        paginator = Paginator(notas, 10)
+        page = self.request.GET.get("page")
+        
+        try:
+            notas_paginadas = paginator.page(page)
+        except PageNotAnInteger:
+            notas_paginadas = paginator.page(1)
+        except EmptyPage:
+            notas_paginadas = paginator.page(paginator.num_pages)
+        
+        context["notas"] = notas_paginadas
+        context["paginator"] = paginator
+        context["form"] = NotasForm()
+        
+        return context
+    
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        
+        nota_id = request.POST.get("nota_id")
+        if nota_id:
+            try:
+                nota = get_object_or_404(Notas, id=nota_id)
+                nota.delete()
+                messages.success(request, "Nota eliminada exitosamente.")
+                return redirect(request.path)
+            except Exception as e:
+                messages.error(request, f"Error al eliminar nota: {str(e)}")
         else:
-            return render(request, 'core/403.html', status=403)
-    else:
-        return render(request, 'core/403.html', status=403)
-
-
-def crearNota(request):
-    if request.user.is_authenticated:
-        if request.user.is_parvularia:
-            if request.method == 'POST':
+            try:
                 form = NotasForm(request.POST)
                 if form.is_valid():
-                    form.save()
-                    return redirect('core:portalNotas')
-            else:
-                form = NotasForm()
+                    nota = form.save(commit=False)
+                    nota.Curso_ID = self.object
+                    nota.save()
+                    messages.success(request, "Nota creada exitosamente.")
+                    return redirect(request.path)
+                else:
+                    context = self.get_context_data(object=self.object)
+                    context["form"] = form
+                    return self.render_to_response(context)
+            except Exception as e:
+                messages.error(request, f"Error al crear nota: {str(e)}")
+        
+        return self.get(request, *args, **kwargs)
 
-            return render(request, 'core/crearNota.html', {'form': form})
-        else:
-            return render(request, 'core/403.html', status=403)
+def eliminarNota(request, codigo_curso, nota_id):
+    curso = get_object_or_404(Curso, codigo_curso=codigo_curso)
+    nota = get_object_or_404(Notas, id=nota_id)
+    
+    if request.method == 'POST':
+        nota.delete()
+        return redirect('core:portalNotas')
+    
+    context = {
+        'nota': nota,
+        'curso': curso,
+    }
+    return render(request, 'core/eliminarNota.html', context)
+
+def editarNota(request, codigo_curso, nota_id):
+    curso = get_object_or_404(Curso, codigo_curso=codigo_curso)
+    nota = get_object_or_404(Notas, id=nota_id)
+    
+    if request.method == 'POST':
+        form = NotasForm(request.POST, instance=nota, curso=curso)
+        if form.is_valid():
+            # Preservamos el estudiante original al guardar
+            nota = form.save(commit=False)
+            nota.Estudiante_ID = nota.Estudiante_ID
+            nota.Periodo_ID = nota.Periodo_ID
+            nota.Semestre = nota.Semestre  # No se modifica
+            nota.save()
+            return redirect('core:cursoNotas', codigo_curso=curso.codigo_curso)
     else:
-        return render(request, 'core/403.html', status=403)
+        form = NotasForm(instance=nota, curso=curso)
+    
+    context = {
+        'form': form,
+        'nota': nota,
+        'curso': curso,
+    }
+    return render(request, 'core/editarNota.html', context)
 
 
-def editarNota(request, id):
-    if request.user.is_authenticated:
-        if request.user.is_parvularia:
-            nota = get_object_or_404(Notas, id=id)
-            if request.method == 'POST':
-                form = NotasForm(request.POST, instance=nota)
-                if form.is_valid():
-                    form.save()
-                    return redirect('core:portalNotas')
-            else:
-                form = NotasForm(instance=nota)
 
-            return render(request, 'core/editarNota.html', {'form': form})
-        else:
-            return render(request, 'core/403.html', status=403)
+def crearNota(request, codigo_curso):
+    try:
+        curso = Curso.objects.get(codigo_curso=codigo_curso)
+        print(f"Curso encontrado: {curso.codigo_curso}")
+    except Curso.DoesNotExist:
+        print("Curso no encontrado")
+        raise Http404("Curso no encontrado")
+    
+    estudiantes_en_curso = Estudiante.objects.filter(curso_id=curso)
+    
+    if request.method == 'POST':
+        form = NotasForm(request.POST, curso=curso)  # Pasamos el curso al formulario
+        if form.is_valid():
+            nota = form.save(commit=False)
+            nota.Curso_ID = curso
+            nota.save()
+            return redirect('core:cursoNotas', codigo_curso=curso.codigo_curso)
     else:
-        return render(request, 'core/403.html', status=403)
+        initial_data = {
+            'Periodo_ID': '',
+            'Semestre': '',
+            'Nota': '',
+            'Nivel': '',
+            'Sesion': ''
+        }
+        form = NotasForm(initial=initial_data, curso=curso)  # Pasamos el curso aquí también
+    
+    context = {
+        'form': form,
+        'curso': curso,
+    }
+    return render(request, 'core/crearNota.html', context)
 
-def eliminarNota(request, id):
-    if request.user.is_authenticated:
-        if request.user.is_parvularia:
-            nota = get_object_or_404(Notas, id=id)
-            if request.method == 'POST':
-                nota.delete()
-                return redirect('core:portalNotas')
-            return render(request, 'core/eliminarNota.html', {'nota': nota})
-        else:
-            return render(request, 'core/403.html', status=403)
-    else:
-        return render(request, 'core/403.html', status=403)
 
 def reportes(request):
     if request.user.is_authenticated:

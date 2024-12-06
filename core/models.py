@@ -114,21 +114,22 @@ class Notas(models.Model):
     NOTAS_CHOICES = [("L", "Logrado"), ("NL", "No Logrado")]
     NIVELES_CHOICES = [("DFM", "Desarrollo Físico y Motor"), ("DSE", "Desarollo Socioemocional"), ("DCG", "Desarrollo Cognitivo"), ("DCM", "Desarrollo Comunicativo")]
     SESIONES_CHOICES = [("1", "Una sesión"), ("2", "Dos sesiones"), ("3", "Tres sesiones"), ("4", "Cuatro sesiones"), ("5", "Cinco sesiones"), ("6", "Seis sesiones"), ("7", "Siete sesiones"), ("8", "Ocho sesiones"), ("9", "Nueve sesiones"), ("10", "Diez sesiones")]
-    Estudiante_ID = models.ForeignKey(Estudiante, on_delete=models.CASCADE)
-    Curso_ID = models.ForeignKey(Curso, on_delete=models.CASCADE)
+    Estudiante_ID = models.ForeignKey(Estudiante, on_delete=models.CASCADE, related_name="notas")
+    Curso_ID = models.ForeignKey(Curso, on_delete=models.CASCADE, related_name="notas")
     Periodo_ID = models.CharField(max_length=10, default='2020-2021')
     Semestre = models.CharField(max_length=3)
     Nota = models.CharField(max_length=2, choices=NOTAS_CHOICES, default='L')
     Nivel = models.CharField(max_length=3, choices=NIVELES_CHOICES, default='DFM')
     Sesion = models.CharField(max_length=2, choices=SESIONES_CHOICES, default='10')
-
+    
     def __str__(self):
         return (f"{self.Estudiante_ID.nombre} - {self.Curso_ID.nombre_curso} - {self.get_Nivel_display()} - {self.get_Nota_display()} - {self.get_Sesion_display()}")
-
+    
     class Meta:
         db_table = "notas"
         verbose_name = 'Nota'
         verbose_name_plural = 'Notas'
+        unique_together = ('Estudiante_ID', 'Curso_ID')
 
 class PlanificacionApoderado(models.Model):
     descripcion = models.CharField(max_length=255)

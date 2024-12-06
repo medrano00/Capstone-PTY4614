@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal de Notas - {{ curso.nombre_curso }}</title>
+    <link rel="icon" href="{% static 'img/favicon2.png' %}" type="image/x-icon" sizes="512x512">
+    <link rel="stylesheet" href="{% static 'css/portalNotas.css' %}">
+</head>
+<body>
+    <button class="btn btn-primary" onclick="window.location.href='{% url 'core:portalNotas' %}'" style="text-align: center;">Regresar al Portal de Notas</button>
+    <button class="btn btn-primary" onclick="window.location.href='{% url 'core:crearNota' curso.codigo_curso %}'" style="text-align: center;">Agregar Nota</button>
+    <br><br>
+    <h1>Portal de Notas - {{ curso.nombre_curso }}</h1>
+    
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Estudiante</th>
+                <th>Nivel de Desarrollo</th>
+                <th>Nota</th>
+                <th>Número de Sesiones</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for nota in notas %}
+            <tr>
+                <td>{{ nota.Estudiante_ID.nombre }}</td>
+                <td>{{ nota.get_Nivel_display }}</td>
+                <td>{{ nota.get_Nota_display }}</td>
+                <td>{{ nota.Sesion }}</td>
+                <td>
+                    <button class="btn btn-primary" onclick="window.location.href='{% url 'core:editarNota' curso.codigo_curso nota.id %}'" style="text-align: center;">Editar</button> |
+                    <button class="btn btn-danger" onclick="window.location.href='{% url 'core:eliminarNota' curso.codigo_curso nota.id %}'" style="text-align: center;">Eliminar</button>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

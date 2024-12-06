@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from .models import User, Planificacion, Asistencia, Estudiante, PlanificacionApoderado, Notas, Reportes, ReportesApoderado
+from .models import User, Planificacion, Asistencia, Estudiante, PlanificacionApoderado, Notas, Reportes, ReportesApoderado, Curso
 
 class LoginForm(forms.Form):
     username = forms.CharField(widget= forms.TextInput(attrs={"class": "form-control", "placeholder": "Introduce tu Nombre de Usuario"}), label="Nombre de Usuario")
@@ -72,13 +72,28 @@ class AsistenciaForm(forms.ModelForm):
 class NotasForm(forms.ModelForm):
     class Meta:
         model = Notas
-        fields = ['Estudiante_ID', 'Curso_ID', 'Periodo_ID', 'Semestre', 'Nota', 'Nivel', 'Sesion']
-        widgets = {
-            'Estudiante_ID': forms.Select(attrs={'class': 'form-control'}),
-            'Curso_ID': forms.Select(attrs={'class': 'form-control'}),
-            'Periodo_ID': forms.TextInput(attrs={'class': 'form-control'}),
-            'Semestre': forms.TextInput(attrs={'class': 'form-control'}),
-            'Nota': forms.Select(attrs={'class': 'form-control'}),
-            'Nivel': forms.Select(attrs={'class': 'form-control'}),
-            'Sesion': forms.Select(attrs={'class': 'form-control'}),
+        fields = ['Estudiante_ID', 'Periodo_ID', 'Semestre', 'Nota', 'Nivel', 'Sesion']
+        labels = {
+            'Estudiante_ID': 'Nombre del Estudiante',
+            'Periodo_ID': 'Período Académico',
+            'Semestre': 'Semestre Académico',
+            'Nota': 'Nota del Alumno',
+            'Nivel': 'Niveles de Aprendizaje',
+            'Sesion': '¿Cuántas sesiones ha realizado?',
         }
+
+    def __init__(self, *args, **kwargs):
+        curso = kwargs.pop('curso', None)  # Extraemos el curso si se pasa como argumento
+        super().__init__(*args, **kwargs)
+
+        # Filtrar estudiantes si se proporciona un curso
+        if curso:
+            self.fields['Estudiante_ID'].queryset = Estudiante.objects.filter(curso_id=curso)
+        else:
+            self.fields['Estudiante_ID'].queryset = Estudiante.objects.none()  # Sin curso, no hay estudiantes
+
+        # Si el formulario está en modo edición, deshabilitamos ciertos campos
+        if self.instance and self.instance.pk:
+            self.fields['Estudiante_ID'].disabled = True
+            self.fields['Periodo_ID'].disabled = True
+            self.fields['Semestre'].disabled = True
