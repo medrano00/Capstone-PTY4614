@@ -1,54 +1,12 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <title>Oops! 404 | PárvuloConnect</title>
     <link rel="icon" href="{% static 'img/favicon2.png' %}" type="image/x-icon" sizes="512x512">
+    <link rel="stylesheet" href="{% static 'css/404.css' %}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        body { 
-            font-family: Arial, sans-serif; 
-            max-width: 600px; 
-            margin: 0 auto; 
-            padding: 20px;
-            background-image: url(../../../static/img/404.png);
-            background-size: cover;
-            background-position: center 00%;
-
-        }
-
-        .error-container { 
-            background-color: #f0f0f0; 
-            border-radius: 5px; 
-            padding: 30px; 
-            box-shadow: 0 0 20px rgba(0,0,0,0.1); 
-        }
-
-        h1 { 
-            color: #333; 
-            font-size: 36px; 
-            margin-bottom: 15px; 
-        }
-
-        p { 
-            color: #666; 
-            line-height: 1.6; 
-        }
-
-        .btn { 
-            display: inline-block; 
-            background-color: #007bff; 
-            color: white; 
-            padding: 10px 20px; 
-            text-decoration: none; 
-            border-radius: 5px; 
-            transition: background-color 0.3s; 
-        }
-
-        .btn:hover { 
-            background-color: #0056b3; 
-        }
-    </style>
 </head>
 <body>
     <div class="error-container">

@@ -1,0 +1,26 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    background-color: #f9f9f9;
+    background-image: url(../img/notas.png);
+}
+.container {
+    width: 50%;
+    padding: 20px;
+    border: 2px solid #c4c4c4;
+    border-radius: 10px;
+    background-color: white;
+}
+.header {
+    background-color: #6b8e23;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    font-size: 24px;
+    border-radius: 10px 10px 0 0;
+    margin-bottom: 20px;
+}

@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-#)@ghofjnt=gt%g0khvgv=0#(!s$_95#9645qoa7y_^150#psw'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['parvuloconnect.cl', 'www.parvuloconnect.cl', 'localhost']
 
@@ -123,6 +123,8 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 MEDIA_URL = '/media/'  # URL para acceder a archivos subidos
 MEDIA_ROOT = BASE_DIR / 'media'  # Ruta en el sistema de archivos donde se almacenan los archivos subidos

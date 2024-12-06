@@ -1,54 +1,38 @@
-/* Estilos generales */
 body {
+    background-image: url('{% static "img/planificaciones.png" %}');
+    background-size: cover;
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    margin: 0;
-    padding: 20px;
 }
 
-h1 {
+h1, h2 {
+    color: white;
     text-align: center;
-    color: #333;
+    padding: 10px;
+}
+
+form {
+    text-align: center;
+    margin: 20px auto;
+}
+
+label, input, button {
+    display: block;
+    margin: 10px auto;
+    padding: 5px;
+    font-size: 1.1em;
 }
 
 #calendar {
     max-width: 900px;
-    margin: 20px auto;
-    padding: 20px;
-    background: white;
+    margin: 40px auto;
+    background-color: white;
+    padding: 10px;
     border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-form {
-    max-width: 600px;
-    margin: 20px auto;
-    padding: 20px;
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-label {
-    display: block;
-    margin-bottom: 10px;
-    font-weight: bold;
-}
-
-input[type="file"] {
-    margin-bottom: 20px;
-}
-
-button {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-button:hover {
-    background-color: #0056b3;
+p.text-muted {
+    color: #ddd;
+    text-align: center;
+    margin-top: 50px;
 }

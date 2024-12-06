@@ -1,0 +1,38 @@
+body {
+    background-image: url('{% static "img/planificaciones.png" %}');
+    background-size: cover;
+    font-family: Arial, sans-serif;
+}
+
+h1, h2 {
+    color: white;
+    text-align: center;
+    padding: 10px;
+}
+
+form {
+    text-align: center;
+    margin: 20px auto;
+}
+
+label, input, button {
+    display: block;
+    margin: 10px auto;
+    padding: 5px;
+    font-size: 1.1em;
+}
+
+#calendar {
+    max-width: 900px;
+    margin: 40px auto;
+    background-color: white;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+p.text-muted {
+    color: #ddd;
+    text-align: center;
+    margin-top: 50px;
+}
